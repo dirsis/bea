@@ -14,10 +14,12 @@ AYUDA---------------------------------------------------------------------------
 pasos:
 
 0.clonar - cmd -  code .
-0.hace copia de modelo 
-1.cambiar de nombre a todos los archivos disponibles - ejemplo > xxxxx
-2.cambiar de titulo en todos los archivos - Ejemplo x xxxxx y ejemplo x xxxx
-3.cambiar de campos  y su idioma x los pedidos.
+
+0.hace copia de modelo x renomabrar con titulo proyecto
+
+1.cambiar de nombre a todos los archivos disponibles - ejemplo > xxxxx (siempre empezar por Model)
+2.cambiar de titulo en todos los archivos - Ejemplo x xxxxx y ejemplo x xxxx (siempre empezar por Model)
+3.cambiar de campos  y su idioma x los pedidos.(siempre empezar por Model)
 4.cmd - add
 
 tabla del modelo
