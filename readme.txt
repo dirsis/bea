@@ -3,9 +3,9 @@ proveedor
 
 field:
 
-razonsocial 	varchar200	default ''
-domicilio 	varchar100	default 'Cordoba'
-email 		varchar140	default ''
+razonsocial varchar200 default ''
+domicilio varchar100 default 'Cordoba'
+email varchar140 default ''
 
 
 
