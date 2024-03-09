@@ -1,13 +1,13 @@
 <?php
-class ModelProduccionDispo extends Model {
+class ModelProduccionEjemplo extends Model {
 	
-	public function bajaDispo() {
-		$sql="DROP TABLE p" . DB_PREFIX . "dispo ";
+	public function bajaEjemplo() {
+		$sql="DROP TABLE p" . DB_PREFIX . "ejemplo ";
 		$this->db->query($sql);
 	}
-	public function creaDispo() {
-		$sql="CREATE TABLE IF NOT EXISTS p" . DB_PREFIX . "dispo (
-  			dispo_id int(11) NOT NULL  AUTO_INCREMENT,
+	public function creaEjemplo() {
+		$sql="CREATE TABLE IF NOT EXISTS p" . DB_PREFIX . "ejemplo (
+  			ejemplo_id int(11) NOT NULL  AUTO_INCREMENT,
 
 			descrip varchar(200) DEFAULT NULL,
 			number(20) DEFAULT NULL			
@@ -20,71 +20,71 @@ class ModelProduccionDispo extends Model {
 			user_id_modified 	int(11) default 0,
 			user_id_delete 		int(11) default 0,
 			autogestion_id 		int(11) default 0,
-			PRIMARY KEY (dispo_id ) ) 
+			PRIMARY KEY (ejemplo_id ) ) 
 			ENGINE=InnoDB DEFAULT CHARSET=utf8;";
 		$this->db->query($sql);
 	}
-	public function traeDispo() {
-		$this->bajaDispo();
-		$this->creaDispo();
+	public function traeEjemplo() {
+		$this->bajaEjemplo();
+		$this->creaEjemplo();
 	}	
 	
-	public function addDispo($data) {
+	public function addEjemplo($data) {
 		
-		$sql="INSERT INTO p" . DB_PREFIX . "dispo 
+		$sql="INSERT INTO p" . DB_PREFIX . "ejemplo 
 		SET descrip = '" . $this->db->escape($data['descrip'])."',
 		number = '" . $this->db->escape($data['number'])."',
 			status = '" . $this->db->escape($data['status'])."',
 			date_added	= now() ,
 			user_id_added = '" . $this->user->getId() . "' ";
 		$this->db->query($sql);
-		$dispo_id = $this->db->getLastId();
-		return $dispo_id;
+		$ejemplo_id = $this->db->getLastId();
+		return $ejemplo_id;
 	}
 	
-	public function editDispo($dispo_id, $data) {
-		$sql="UPDATE p" . DB_PREFIX . "dispo 
+	public function editEjemplo($ejemplo_id, $data) {
+		$sql="UPDATE p" . DB_PREFIX . "ejemplo 
 		SET descrip = '" . $this->db->escape($data['descrip'])."',
 			number = '" . $this->db->escape($data['number'])."',
 			status = '" . $this->db->escape($data['status'])."',
 			user_id_modified = '" . $this->user->getId() . "',
 			date_modified 	= now() 
-		WHERE dispo_id = '" . (int)$dispo_id . "'";
+		WHERE ejemplo_id = '" . (int)$ejemplo_id . "'";
 		$this->db->query($sql);
 	}
 	
-	public function deleteDispo($id) {
-		$sql="UPDATE p" . DB_PREFIX . "dispo 
+	public function deleteEjemplo($id) {
+		$sql="UPDATE p" . DB_PREFIX . "ejemplo 
 		SET status = 0,
 		user_id_delete = '" . $this->user->getId() . "',
 		date_delete	= now() 
-		WHERE dispo_id = '" . (int)$id . "'";
+		WHERE ejemplo_id = '" . (int)$id . "'";
 		$this->db->query($sql);
 	}
 	
 	
-	public function copyDispo($dispo_id) {
-		$sql="SELECT DISTINCT * FROM p" . DB_PREFIX . "dispo WHERE dispo_id = '" . (int)$dispo_id . "'";
+	public function copyEjemplo($ejemplo_id) {
+		$sql="SELECT DISTINCT * FROM p" . DB_PREFIX . "ejemplo WHERE ejemplo_id = '" . (int)$ejemplo_id . "'";
 		$query = $this->db->query($sql);
 		if ($query->num_rows) {
 			$data = $query->row;
 			$data['status'] = '1';
-			$this->addDispo($data);
+			$this->addEjemplo($data);
 		}
 	}
 
-	public function getDispo($id) {
-		$sql="SELECT DISTINCT * FROM p" . DB_PREFIX . "dispo 
-		WHERE dispo_id = '" . (int)$id . "'; ";
+	public function getEjemplo($id) {
+		$sql="SELECT DISTINCT * FROM p" . DB_PREFIX . "ejemplo 
+		WHERE ejemplo_id = '" . (int)$id . "'; ";
 		$query = $this->db->query($sql);
 		return $query->row;
 	}
 	
-	public function getDispos($data = array()) {
-		$sql = "SELECT * FROM p" . DB_PREFIX . "dispo ";
+	public function getEjemplos($data = array()) {
+		$sql = "SELECT * FROM p" . DB_PREFIX . "ejemplo ";
 		$implode = array();
-		if (!empty($data['filter_dispo_id'])) {
-			$implode[] = " dispo_id='" . $this->db->escape($data['filter_dispo_id']) . "' ";
+		if (!empty($data['filter_ejemplo_id'])) {
+			$implode[] = " ejemplo_id='" . $this->db->escape($data['filter_ejemplo_id']) . "' ";
 		}		
 		if (!empty($data['filter_descrip'])) {
 			$implode[] = " descrip LIKE '%" . $this->db->escape($data['filter_descrip']) . "%' ";
@@ -96,7 +96,7 @@ class ModelProduccionDispo extends Model {
 			$sql .= " WHERE " . implode(" AND ", $implode);
 		}
 		$sort_data = array(
-			'dispo_id',
+			'ejemplo_id',
 			'descrip',
 			'date_added',
 			'code'
@@ -125,11 +125,11 @@ class ModelProduccionDispo extends Model {
 		$query = $this->db->query($sql);
 		return $query->rows;
 	}
-	public function getTotalDispos($data = array()) {
-		$sql = "SELECT COUNT(*) AS total FROM p" . DB_PREFIX . "dispo ";
+	public function getTotalEjemplos($data = array()) {
+		$sql = "SELECT COUNT(*) AS total FROM p" . DB_PREFIX . "ejemplo ";
 		$implode = array();
-		if (!empty($data['filter_dispo_id'])) {
-			$implode[] = " dispo_id='" . $this->db->escape($data['filter_dispo_id']) . "' ";
+		if (!empty($data['filter_ejemplo_id'])) {
+			$implode[] = " ejemplo_id='" . $this->db->escape($data['filter_ejemplo_id']) . "' ";
 		}		
 		if (!empty($data['filter_descrip'])) {
 			$implode[] = " descrip LIKE '%" . $this->db->escape($data['filter_descrip']) . "%' ";

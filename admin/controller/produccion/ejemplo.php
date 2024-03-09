@@ -1,5 +1,5 @@
 <?php
-class ControllerProduccionDispo extends Controller {
+class ControllerProduccionEjemplo extends Controller {
 	private $error = array();
 
 	public function index() {
@@ -7,23 +7,23 @@ class ControllerProduccionDispo extends Controller {
 		error_reporting(E_ALL);
 		ini_set('display_errors', '1');
 		//
-		$this->load->language('produccion/dispo');
+		$this->load->language('produccion/ejemplo');
 		$this->document->setTitle($this->language->get('heading_title'));
-		$this->load->model('produccion/dispo');
+		$this->load->model('produccion/ejemplo');
 		//CREA LA TABLA SI NO EXISTE
-		//$this->model_produccion_dispo->bajaDispo();
-		$this->model_produccion_dispo->creaDispo();
+		//$this->model_produccion_ejemplo->bajaEjemplo();
+		$this->model_produccion_ejemplo->creaEjemplo();
 		
 		//			
 		$this->getList();
 	}
 	public function sincro(){
-		$this->load->language('produccion/dispo');
-		$this->load->model('produccion/dispo');
-		$this->model_produccion_dispo->traeDispo();
+		$this->load->language('produccion/ejemplo');
+		$this->load->model('produccion/ejemplo');
+		$this->model_produccion_ejemplo->traeEjemplo();
 		$this->session->data['success'] = $this->language->get('text_success');
 		$url = $this->filtrar($this->request->get,"gral");
-		$this->response->redirect($this->url->link('produccion/dispo', 'user_token=' . $this->session->data['user_token'] . $url, true));
+		$this->response->redirect($this->url->link('produccion/ejemplo', 'user_token=' . $this->session->data['user_token'] . $url, true));
 	}
 	
 	public function filtrar($get,$accion="gral"){
@@ -50,8 +50,8 @@ class ControllerProduccionDispo extends Controller {
 		$url='';
 
 		//generico
-		if (isset($get['filter_dispo_id'])) {
-			$url .= '&filter_dispo_id=' . $get['filter_dispo_id'];
+		if (isset($get['filter_ejemplo_id'])) {
+			$url .= '&filter_ejemplo_id=' . $get['filter_ejemplo_id'];
 		}
 		if (isset($get['filter_status'])) {
 			$url .= '&filter_status=' . $get['filter_status'];
@@ -120,25 +120,25 @@ class ControllerProduccionDispo extends Controller {
 		error_reporting(E_ALL);
 		ini_set('display_errors', '1');
 		//		
-		$this->load->language('produccion/dispo');
+		$this->load->language('produccion/ejemplo');
 		$this->document->setTitle($this->language->get('heading_title'));
-		$this->load->model('produccion/dispo');
+		$this->load->model('produccion/ejemplo');
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
 			
 
 			
-			$this->model_produccion_dispo->addDispo($this->request->post);
+			$this->model_produccion_ejemplo->addEjemplo($this->request->post);
 			$this->session->data['success'] = $this->language->get('text_success');
 			$url = $this->filtrar($this->request->get,"gral");
-			$this->response->redirect($this->url->link('produccion/dispo', 'user_token=' . $this->session->data['user_token'] . $url, true));
+			$this->response->redirect($this->url->link('produccion/ejemplo', 'user_token=' . $this->session->data['user_token'] . $url, true));
 		}
 		$this->getForm();
 	}
 	
 	public function edit() {
-		$this->load->language('produccion/dispo');
+		$this->load->language('produccion/ejemplo');
 		$this->document->setTitle($this->language->get('heading_title'));
-		$this->load->model('produccion/dispo');
+		$this->load->model('produccion/ejemplo');
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
 			
 			/*
@@ -147,43 +147,43 @@ class ControllerProduccionDispo extends Controller {
 			echo "</pre>";
 			die;
 			*/
-			$this->model_produccion_dispo->editDispo($this->request->get['dispo_id'], $this->request->post);
+			$this->model_produccion_ejemplo->editEjemplo($this->request->get['ejemplo_id'], $this->request->post);
 			$this->session->data['success'] = $this->language->get('text_success');
 			$url = $this->filtrar($this->request->get);
-			$this->response->redirect($this->url->link('produccion/dispo', 'user_token=' . $this->session->data['user_token'] . $url, true));
+			$this->response->redirect($this->url->link('produccion/ejemplo', 'user_token=' . $this->session->data['user_token'] . $url, true));
 		}
 		$this->getForm();
 	}
 	
 	public function delete() {
-		$this->load->language('produccion/dispo');
+		$this->load->language('produccion/ejemplo');
 		$this->document->setTitle($this->language->get('heading_title'));
-		$this->load->model('produccion/dispo');
+		$this->load->model('produccion/ejemplo');
 		if (isset($this->request->post['selected']) && $this->validateDelete()) {
-			foreach ($this->request->post['selected'] as $dispo_id) {
-				$this->model_produccion_dispo->deleteDispo($dispo_id);
+			foreach ($this->request->post['selected'] as $ejemplo_id) {
+				$this->model_produccion_ejemplo->deleteEjemplo($ejemplo_id);
 			}
 			$this->session->data['success'] = $this->language->get('text_success');
 			$url = $this->filtrar($this->request->get,"gral");
-			$this->response->redirect($this->url->link('produccion/dispo', 'user_token=' . $this->session->data['user_token'] . $url, true));
+			$this->response->redirect($this->url->link('produccion/ejemplo', 'user_token=' . $this->session->data['user_token'] . $url, true));
 		}
 		$this->getList();
 	}
 	
 	
 	public function copy() {
-		$this->load->language('produccion/dispo');
+		$this->load->language('produccion/ejemplo');
 		$this->document->setTitle($this->language->get('heading_title'));
-		$this->load->model('produccion/dispo');
+		$this->load->model('produccion/ejemplo');
 
 		if (isset($this->request->post['selected']) && $this->validateCopy()) {
-			foreach ($this->request->post['selected'] as $dispo_id) {
-				$this->model_produccion_dispo->copyDispo($dispo_id);
+			foreach ($this->request->post['selected'] as $ejemplo_id) {
+				$this->model_produccion_ejemplo->copyEjemplo($ejemplo_id);
 			}
 			
 			$this->session->data['success'] = $this->language->get('text_success');
 			$url = $this->filtrar($this->request->get,"gral");
-			$this->response->redirect($this->url->link('produccion/dispo', 'user_token=' . $this->session->data['user_token'] . $url, true));
+			$this->response->redirect($this->url->link('produccion/ejemplo', 'user_token=' . $this->session->data['user_token'] . $url, true));
 		}
 
 		$this->getList();
@@ -191,10 +191,10 @@ class ControllerProduccionDispo extends Controller {
 	
 	protected function getList() {
 
-		if (isset($this->request->get['filter_dispo_id'])) {
-			$filter_dispo_id = $this->request->get['filter_dispo_id'];
+		if (isset($this->request->get['filter_ejemplo_id'])) {
+			$filter_ejemplo_id = $this->request->get['filter_ejemplo_id'];
 		} else {
-			$filter_dispo_id = '';
+			$filter_ejemplo_id = '';
 		}
 		if (isset($this->request->get['filter_descrip'])) {
 			$filter_descrip = $this->request->get['filter_descrip'];
@@ -249,18 +249,18 @@ class ControllerProduccionDispo extends Controller {
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
-			'href' => $this->url->link('produccion/dispo', 'user_token=' . $this->session->data['user_token'] . $url, true)
+			'href' => $this->url->link('produccion/ejemplo', 'user_token=' . $this->session->data['user_token'] . $url, true)
 		);
 
-		$data['add'] = $this->url->link('produccion/dispo/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
+		$data['add'] = $this->url->link('produccion/ejemplo/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
 		
-		$data['delete'] = $this->url->link('produccion/dispo/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
+		$data['delete'] = $this->url->link('produccion/ejemplo/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 		
-		$data['copy'] = $this->url->link('produccion/dispo/copy', 'user_token=' . $this->session->data['user_token'] . $url, true);
+		$data['copy'] = $this->url->link('produccion/ejemplo/copy', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
-		$data['dispos'] = array();
+		$data['ejemplos'] = array();
 		$filter_data = array(
-			'filter_dispo_id'         => $filter_dispo_id,
+			'filter_ejemplo_id'         => $filter_ejemplo_id,
 			'filter_descrip'   			=> $filter_descrip,
 			'filter_status'            => $filter_status,
 			'sort'                     => $sort,
@@ -269,10 +269,10 @@ class ControllerProduccionDispo extends Controller {
 			'limit'                    => $limit
 		);
  
-		$dispo_total = $this->model_produccion_dispo->getTotalDispos($filter_data);
+		$ejemplo_total = $this->model_produccion_ejemplo->getTotalEjemplos($filter_data);
 
 		$this->load->model('user/user');
-		$results = $this->model_produccion_dispo->getDispos($filter_data);
+		$results = $this->model_produccion_ejemplo->getEjemplos($filter_data);
 
 		foreach ($results as $result) {
 			
@@ -293,8 +293,8 @@ class ControllerProduccionDispo extends Controller {
 				$user_id_delete="";
 			}
 
-			$data['dispos'][] = array(
-				'dispo_id'    	=> $result['dispo_id'],
+			$data['ejemplos'][] = array(
+				'ejemplo_id'    	=> $result['ejemplo_id'],
 				'descrip'    		=> $result['descrip'],
 				'code'    			=> $result['code'],
 				'number'    			=> $result['number'],
@@ -305,8 +305,8 @@ class ControllerProduccionDispo extends Controller {
 				'user_id_added'		=> $user_id_added,
 				'user_id_modified'	=> $user_id_modified,
 				'user_id_delete'	=> $user_id_delete,
-				'edit'           	=> $this->url->link('produccion/dispo/edit', 'user_token=' . $this->session->data['user_token'] . '&dispo_id=' . $result['dispo_id'] . $url, true),
-				'clonar'           	=> $this->url->link('produccion/dispo/clonar', 'user_token=' . $this->session->data['user_token'] . '&dispo_id=' . $result['dispo_id'] . $url, true)				
+				'edit'           	=> $this->url->link('produccion/ejemplo/edit', 'user_token=' . $this->session->data['user_token'] . '&ejemplo_id=' . $result['ejemplo_id'] . $url, true),
+				'clonar'           	=> $this->url->link('produccion/ejemplo/clonar', 'user_token=' . $this->session->data['user_token'] . '&ejemplo_id=' . $result['ejemplo_id'] . $url, true)				
 			);
 		}
 
@@ -333,25 +333,25 @@ class ControllerProduccionDispo extends Controller {
 		}
 
 		$url = $this->filtrar($this->request->get,"column");
-		$data['sort_dispo_id'] = $this->url->link('produccion/dispo', 'user_token=' . $this->session->data['user_token'] . '&sort=dispo_id' . $url, true);
+		$data['sort_ejemplo_id'] = $this->url->link('produccion/ejemplo', 'user_token=' . $this->session->data['user_token'] . '&sort=ejemplo_id' . $url, true);
 		
-		$data['sort_descrip'] = $this->url->link('produccion/dispo', 'user_token=' . $this->session->data['user_token'] . '&sort=descrip' . $url, true);
+		$data['sort_descrip'] = $this->url->link('produccion/ejemplo', 'user_token=' . $this->session->data['user_token'] . '&sort=descrip' . $url, true);
 		
-		$data['sort_code'] = $this->url->link('produccion/dispo', 'user_token=' . $this->session->data['user_token'] . '&sort=code' . $url, true);		
+		$data['sort_code'] = $this->url->link('produccion/ejemplo', 'user_token=' . $this->session->data['user_token'] . '&sort=code' . $url, true);		
 		
 		$url = $this->filtrar($this->request->get,"nopage");
 		
 		$pagination = new Pagination();
-		$pagination->total = $dispo_total;
+		$pagination->total = $ejemplo_total;
 		$pagination->page = $page;
 		$pagination->limit = $limit;
-		$pagination->url = $this->url->link('produccion/dispo', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
+		$pagination->url = $this->url->link('produccion/ejemplo', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
 
 		$data['pagination'] = $pagination->render();
 
-		$data['results'] = sprintf($this->language->get('text_pagination'), ($dispo_total) ? (($page - 1) *  $limit) + 1 : 0, ((($page - 1) *  $limit) > ($dispo_total -  $limit)) ? $dispo_total : ((($page - 1) *  $limit) +  $limit), $dispo_total, ceil($dispo_total /  $limit));
+		$data['results'] = sprintf($this->language->get('text_pagination'), ($ejemplo_total) ? (($page - 1) *  $limit) + 1 : 0, ((($page - 1) *  $limit) > ($ejemplo_total -  $limit)) ? $ejemplo_total : ((($page - 1) *  $limit) +  $limit), $ejemplo_total, ceil($ejemplo_total /  $limit));
 
-		$data['filter_dispo_id'] = $filter_dispo_id;
+		$data['filter_ejemplo_id'] = $filter_ejemplo_id;
 		$data['filter_descrip'] = $filter_descrip;
 		$data['filter_status'] = $filter_status;
 
@@ -362,7 +362,7 @@ class ControllerProduccionDispo extends Controller {
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
 
-		$this->response->setOutput($this->load->view('produccion/dispo_list', $data));
+		$this->response->setOutput($this->load->view('produccion/ejemplo_list', $data));
 	}
 
 	protected function getForm() {
@@ -371,7 +371,7 @@ class ControllerProduccionDispo extends Controller {
 		error_reporting(E_ALL);
 		ini_set('display_errors', '1');
 		
-		$data['text_form'] = !isset($this->request->get['dispo_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
+		$data['text_form'] = !isset($this->request->get['ejemplo_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
 
 		$data['user_token'] = $this->session->data['user_token'];
 
@@ -391,25 +391,25 @@ class ControllerProduccionDispo extends Controller {
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
-			'href' => $this->url->link('produccion/dispo', 'user_token=' . $this->session->data['user_token'] . $url, true)
+			'href' => $this->url->link('produccion/ejemplo', 'user_token=' . $this->session->data['user_token'] . $url, true)
 		);
 
-		if (!isset($this->request->get['dispo_id'])) {
-			$data['action'] = $this->url->link('produccion/dispo/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
+		if (!isset($this->request->get['ejemplo_id'])) {
+			$data['action'] = $this->url->link('produccion/ejemplo/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
 		} else {
-			$data['action'] = $this->url->link('produccion/dispo/edit', 'user_token=' . $this->session->data['user_token'] . '&dispo_id=' . $this->request->get['dispo_id'] . $url, true);
+			$data['action'] = $this->url->link('produccion/ejemplo/edit', 'user_token=' . $this->session->data['user_token'] . '&ejemplo_id=' . $this->request->get['ejemplo_id'] . $url, true);
 		}
 
-		$data['cancel'] = $this->url->link('produccion/dispo', 'user_token=' . $this->session->data['user_token'] . $url, true);
+		$data['cancel'] = $this->url->link('produccion/ejemplo', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
-		if (isset($this->request->get['dispo_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
-			$info = $this->model_produccion_dispo->getDispo($this->request->get['dispo_id']);
+		if (isset($this->request->get['ejemplo_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
+			$info = $this->model_produccion_ejemplo->getEjemplo($this->request->get['ejemplo_id']);
 		}
 
-		if (isset($this->request->get['dispo_id'])) {
-			$data['dispo_id'] = $this->request->get['dispo_id'];
+		if (isset($this->request->get['ejemplo_id'])) {
+			$data['ejemplo_id'] = $this->request->get['ejemplo_id'];
 		} else {
-			$data['dispo_id'] = 0;
+			$data['ejemplo_id'] = 0;
 		}
 
 		if (isset($this->request->post['descrip'])) {
@@ -492,11 +492,11 @@ class ControllerProduccionDispo extends Controller {
 		$data['header'] = $this->load->controller('common/header');
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
-		$this->response->setOutput($this->load->view('produccion/dispo_form', $data));
+		$this->response->setOutput($this->load->view('produccion/ejemplo_form', $data));
 	}
 
 	protected function validateForm() {
-		if (!$this->user->hasPermission('modify', 'produccion/dispo')) {
+		if (!$this->user->hasPermission('modify', 'produccion/ejemplo')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
 		if ((utf8_strlen($this->request->post['descrip']) < 1) || (utf8_strlen(trim($this->request->post['descrip'])) > 200)) {
@@ -509,7 +509,7 @@ class ControllerProduccionDispo extends Controller {
 	}
 
 	protected function validateDelete() {
-		if (!$this->user->hasPermission('modify', 'produccion/dispo')) {
+		if (!$this->user->hasPermission('modify', 'produccion/ejemplo')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
 
@@ -517,7 +517,7 @@ class ControllerProduccionDispo extends Controller {
 	}
 	
 	protected function validateCopy() {
-		if (!$this->user->hasPermission('modify', 'produccion/dispo')) {
+		if (!$this->user->hasPermission('modify', 'produccion/ejemplo')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
 
@@ -526,10 +526,10 @@ class ControllerProduccionDispo extends Controller {
 		
 	public function download_xlsx() {
 	
-		if (isset($this->request->get['filter_dispo_id'])) {
-			$filter_dispo_id = $this->request->get['filter_dispo_id'];
+		if (isset($this->request->get['filter_ejemplo_id'])) {
+			$filter_ejemplo_id = $this->request->get['filter_ejemplo_id'];
 		} else {
-			$filter_dispo_id = '';
+			$filter_ejemplo_id = '';
 		}
 		if (isset($this->request->get['filter_descrip'])) {
 			$filter_descrip = $this->request->get['filter_descrip'];
@@ -572,9 +572,9 @@ class ControllerProduccionDispo extends Controller {
 		}else{
 			$limit = $this->config->get('config_limit_admin');
 		}
-		$data['dispos'] = array();
+		$data['ejemplos'] = array();
 		$filter_data = array(
-			'filter_dispo_id'        => $filter_dispo_id,
+			'filter_ejemplo_id'        => $filter_ejemplo_id,
 			'filter_descrip'           => $filter_descrip,
 			'filter_nota'           => $filter_nota,
 			'filter_status'            => $filter_status,
@@ -583,8 +583,8 @@ class ControllerProduccionDispo extends Controller {
 			'start'                    => ($page - 1) * $limit,
 			'limit'                    => $limit
 		);
-		$this->load->model('produccion/dispo');
-		$results = $this->model_produccion_dispo->getDispos($filter_data);
+		$this->load->model('produccion/ejemplo');
+		$results = $this->model_produccion_ejemplo->getEjemplos($filter_data);
 	
 	
 		//XLSX
@@ -598,7 +598,7 @@ class ControllerProduccionDispo extends Controller {
 					->setLastModifiedBy("dirsis.com.ar")
 					->setTitle("Exportar XLSX")
 					->setSubject("Excel")
-					->setDispo("reportes");
+					->setEjemplo("reportes");
 		/* Datos Hojas */
 		$row=1;
 			$objPHPExcel->setActiveSheetIndex(0)
@@ -610,7 +610,7 @@ class ControllerProduccionDispo extends Controller {
 		$row++;	
 		foreach ($results as $result) {
 			$objPHPExcel->setActiveSheetIndex(0)
-					->setCellValue('A'.$row,  $result['dispo_id'])
+					->setCellValue('A'.$row,  $result['ejemplo_id'])
 					->setCellValue('B'.$row,  $result['descrip'])
 					->setCellValue('C'.$row,  $result['nota'])
 					->setCellValue('D'.$row,  $result['status'])
@@ -653,7 +653,7 @@ class ControllerProduccionDispo extends Controller {
 		$excel = $reader->load($inputFileName);
 		$sheet = $excel->getActiveSheet();
 		$data = $sheet->toArray();
-		$this->load->model('produccion/dispo');
+		$this->load->model('produccion/ejemplo');
 		$edit=$new=$linea=0;
 		foreach ($data as $in_ar){
 			if (!empty($in_ar[1]) and $linea>0){
@@ -666,11 +666,11 @@ class ControllerProduccionDispo extends Controller {
 				);
 				if ((int)$in_ar[0]>0){
 					//EDITAR
-					$this->model_produccion_dispo->editDispo($in_ar[0],$dato);
+					$this->model_produccion_ejemplo->editEjemplo($in_ar[0],$dato);
 					$edit++;
 				}else{
 					//NUEVO
-					$this->model_produccion_dispo->addDispo($dato);			
+					$this->model_produccion_ejemplo->addEjemplo($dato);			
 					$new++;
 				}
 			}

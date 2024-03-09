@@ -1,11 +1,11 @@
 <?php
 // Heading
-$_['heading_title']         = 'Categorias';
+$_['heading_title']         = 'Ejemplos';
 
 $_['tab_general'] 			= 'General';
 	
 // Column
-$_['column_dispo_id'] 	    = 'ID';
+$_['column_ejemplo_id'] 	    = 'ID';
 $_['column_descrip'] 		= 'Descripcion';
 $_['column_nota'] 		    = 'Nota';
 $_['column_code'] 			= 'Codigo';
@@ -36,7 +36,7 @@ $_['entry_date_init'] = 'Fecha Inicial';
 $_['entry_date_fin'] = 'Fecha Final';
 
 // Entry
-$_['entry_dispo_id'] 		= 'ID';
+$_['entry_ejemplo_id'] 		= 'ID';
 $_['entry_descrip'] 		= 'Descripcion';
 $_['entry_nota'] 		    = 'Nota';
 $_['entry_code'] 			= 'Codigo';
