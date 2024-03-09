@@ -1,10 +1,11 @@
 crud:
-dispo
+maquina
 
 field:
 
-descrip varchar200
-number varchar20
+denomina varchar200
+modelo varchar20
+indice int11
 
 
 pasos:
