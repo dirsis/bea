@@ -1,14 +1,10 @@
 crud:
-tipo
+dispo
 
 field:
 
 descrip varchar200
-code int11
-color varchar20
-nota  varchar255
-
-
+number varchar20
 
 
 pasos:
