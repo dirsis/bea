@@ -5,11 +5,11 @@ $_['heading_title']         = 'Categorias';
 $_['tab_general'] 			= 'General';
 	
 // Column
-$_['column_tipo_id'] 	    = 'ID';
+$_['column_dispo_id'] 	    = 'ID';
 $_['column_descrip'] 		= 'Descripcion';
 $_['column_nota'] 		    = 'Nota';
 $_['column_code'] 			= 'Codigo';
-$_['column_color'] 			= 'Color';
+$_['column_number'] 			= 'Color';
 $_['column_status'] 		= 'Estado';
 $_['column_action'] 		= 'Acci&oacute;n';  
 $_['column_date_added'] 		= 'Fecha de Alta';
@@ -36,11 +36,11 @@ $_['entry_date_init'] = 'Fecha Inicial';
 $_['entry_date_fin'] = 'Fecha Final';
 
 // Entry
-$_['entry_tipo_id'] 		= 'ID';
+$_['entry_dispo_id'] 		= 'ID';
 $_['entry_descrip'] 		= 'Descripcion';
 $_['entry_nota'] 		    = 'Nota';
 $_['entry_code'] 			= 'Codigo';
-$_['entry_color'] 			= 'Color';
+$_['entry_number'] 			= 'Color';
 $_['entry_status'] 			= 'Estado';
 $_['entry_action'] 			= 'Acci&oacute;n';  
 $_['entry_date_added'] 		= 'Fecha de Alta';
