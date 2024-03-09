@@ -1,11 +1,11 @@
 xxxx:
-maquina
+proveedor
 
 field:
 
-denomina varchar200
-modelo varchar20
-indice int11
+razonsocial varchar200
+domicilio varchar100
+email varchar140
 
 
 
