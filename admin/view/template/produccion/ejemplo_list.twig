@@ -26,7 +26,7 @@
 			</li> 
 		</ul>		
       </div>
-      <ul class="breadcrumb" style="background-number:#red;">
+      <ul class="breadcrumb">
         <li>{{ heading_title }}</li>
 		{% for breadcrumb in breadcrumbs %}
         <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
@@ -116,7 +116,7 @@
                     </td>
                       <td class="text-left">{{ ejemplo.ejemplo_id}}</td>
                       <td class="text-left">{{ ejemplo.descrip }}</td>
-					  <td class="text-left"><button type="button" class="btn btn-block" style="background-number:{{ ejemplo.number }};"></button></td>
+					  <td class="text-left">{{ ejemplo.number }}</td>
 					  <td class="text-left">{{ ejemplo.code }}</td>					  
                      <td class="text-center">
 					<span class="btn btn-success" data-toggle="tooltip" title="{{ ejemplo.date_added }}/{{ ejemplo.user_id_added }}"></span>

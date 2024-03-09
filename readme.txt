@@ -3,9 +3,9 @@ proveedor
 
 field:
 
-razonsocial varchar200
-domicilio varchar100
-email varchar140
+razonsocial 	varchar200	default ''
+domicilio 	varchar100	default 'Cordoba'
+email 		varchar140	default ''
 
 
 
@@ -13,20 +13,23 @@ email varchar140
 AYUDA---------------------------------------------------------------------------------
 pasos:
 
-0.clonar - cmd -  code .
-
-0.hace copia de modelo x renomabrar con titulo proyecto
-
-1.cambiar de nombre a todos los archivos disponibles - ejemplo > xxxxx (siempre empezar por Model)
-2.cambiar de titulo en todos los archivos - Ejemplo x xxxxx y ejemplo x xxxx (siempre empezar por Model)
-3.cambiar de campos  y su idioma x los pedidos.(siempre empezar por Model)
-4.cmd - add
+0.baja
+---------------------------------
+1.hace copia de modelo x renomabrar con titulo "proyecto"
+2.entrar a nueva "proyecto"
+3.cmd - code .
+4.cambiar de nombre a todos los archivos disponibles - ejemplo > xxxxx (siempre empezar por Model)
+5.cambiar de titulo en todos los archivos - Ejemplo x xxxxx y ejemplo x xxxx (siempre empezar por Model)
+6.cambiar de campos  y su idioma x los pedidos.(siempre empezar por Model)
+---------------------------------
+7.sube
 
 tabla del modelo
-            ejemplo
+	ejemplo
 campos del modelo
-			descrip varchar(200) DEFAULT NULL,
-			number(20) DEFAULT NULL	
+	descrip varchar(200) DEFAULT NULL,
+	number(20) DEFAULT NULL	
+
 
 
 
