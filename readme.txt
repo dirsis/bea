@@ -15,8 +15,8 @@ pasos:
 
 0.baja
 ---------------------------------
-1.hace copia de modelo x renomabrar con titulo "proyecto"
-2.entrar a nueva "proyecto"
+1.hace copia de modelo x renomabrar con titulo "NN"
+2.entrar a nueva "NN"
 3.cmd - code .
 4.cambiar de nombre a todos los archivos disponibles - ejemplo > xxxxx (siempre empezar por Model)
 5.cambiar de titulo en todos los archivos - Ejemplo x xxxxx y ejemplo x xxxx (siempre empezar por Model)

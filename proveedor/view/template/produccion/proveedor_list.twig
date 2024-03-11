@@ -1,0 +1,273 @@
+{{ header }}{{ column_left }}
+<div id="content">
+  <div class="page-header">
+    <div class="container-fluid">
+      <div class="pull-right">
+		<button type="button" data-toggle="tooltip" title="{{ button_filter }}" onclick="$('#filter-proveedor').toggleClass('hidden-sm hidden-xs');" class="btn btn-default hidden-md hidden-lg"><i class="fa fa-filter"></i></button>
+        <a href="{{ add }}" data-toggle="tooltip" title="{{ button_add }}" class="btn btn-primary"><i class="fa fa-plus"></i></a>
+        <button type="submit" form="form-proveedor" formaction="{{ copy }}" data-toggle="tooltip" title="{{ button_copy }}" class="btn btn-default"><i class="fa fa-copy"></i></button>
+		
+        <button type="button" data-toggle="tooltip" title="{{ button_delete }}" class="btn btn-danger" onclick="confirm('{{ text_confirm }}') ? $('#form-proveedor').submit() : false;"><i class="fa fa-trash-o"></i></button>
+		|
+		<button type="button" data-toggle="tooltip" title="Bajar XLSX" onclick="download_xlsx()" class="btn btn-success"><i class="fa fa-download"></i> XLS</button>	
+		<button type="button" id="xlsx-upload" data-toggle="tooltip" title="Subir XLSX" class="btn btn-success"><i class="fa fa-upload"></i> XLS</button>		
+		|
+		<ul class="pagination">
+			<li>
+              <select name="limit" id="filter-limit" class="form-control" onchange="limit()">
+                <option value="10" 		{% if limit==10 %} 		selected="selected" 	{% endif %}>10</option>
+				<option value="20" 		{% if limit==20 %} 		selected="selected" 	{% endif %}>20</option>
+				<option value="50" 		{% if limit==50 %} 		selected="selected" 	{% endif %}>50</option>
+				<option value="100" 	{% if limit==100 %} 	selected="selected" 	{% endif %}>100</option>
+				<option value="250" 	{% if limit==250 %} 	selected="selected" 	{% endif %}>250</option>
+				<option value="500" 	{% if limit==500 %} 	selected="selected" 	{% endif %}>500</option>
+				<option value="1000" 	{% if limit==1000 %} 	selected="selected" 	{% endif %}>1000</option>
+              </select>
+			</li> 
+		</ul>		
+      </div>
+      <ul class="breadcrumb" style="background-domicilio:#red;">
+        <li>{{ heading_title }}</li>
+		{% for breadcrumb in breadcrumbs %}
+        <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <div class="container-fluid">
+   {% if error_warning %}
+    <div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+    {% endif %}
+    {% if success %}
+    <div class="alert alert-success alert-dismissible"><i class="fa fa-check-circle"></i> {{ success }}
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+    {% endif %}
+    <div class="row">
+      <div id="filter-proveedor" class="col-md-3 col-md-push-9 col-sm-12 hidden-sm hidden-xs">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <a id="button-filter2"<h3 class="panel-title" id="button-filter2"><i class="fa fa-filter"></i> {{ text_filter }}</h3>
+          </div>
+          <div class="panel-body">
+            <div class="form-group">
+              <label class="control-label" for="input-proveedor_id">{{ entry_proveedor_id }}</label>
+              <input type="text" name="filter_proveedor_id" value="{{ filter_proveedor_id }}" placeholder="{{ entry_proveedor_id }}" id="input-proveedor_id" class="form-control" />
+            </div>
+            <div class="form-group">
+              <label class="control-label" for="input-razonsocial">{{ entry_razonsocial }}</label>
+              <input type="text" name="filter_razonsocial" value="{{ filter_razonsocial }}" placeholder="{{ entry_razonsocial }}" id="input-razonsocial" class="form-control" />
+            </div>
+            <div class="form-group">
+              <label class="control-label" for="input-status">{{ entry_status }}</label>
+              <select name="filter_status" id="input-status" class="form-control">
+                {% if filter_status == '1' %}
+                <option value="1" selected="selected">{{ text_enabled }}</option>
+                {% else %}
+                <option value="1">{{ text_enabled }}</option>
+                {% endif %}
+                {% if filter_status == '0' %}
+                <option value="0" selected="selected">{{ text_disabled }}</option>
+                {% else %}
+                <option value="0">{{ text_disabled }}</option>
+                {% endif %}
+              </select>
+            </div>			
+            <div class="form-group text-right">
+              <button type="button" id="button-filter" class="btn btn-primary btn-block"><i class="fa fa-filter"></i> {{ button_filter }}</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-9 col-md-pull-3 col-sm-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title"><i class="fa fa-list"></i> {{ text_list }}</h3>
+          </div>
+          <div class="panel-body">
+            <div class="table-responsive">
+              <form action="{{ delete }}" method="post" enctype="multipart/form-data" id="form-proveedor">
+                <table class="table table-bordered table-hover">
+                  <thead>
+                    <tr>
+                      <td style="width: 1px;" class="text-center"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);" /></td>
+					  
+                      <td class="text-left">{% if sort == 'proveedor_id' %}<a href="{{ sort_proveedor_id }}" class="{{ order|lower }}">{{ column_proveedor_id }}</a>{% else %}<a href="{{ sort_proveedor_id }}">{{ column_proveedor_id }}</a>{% endif %}</td>
+                      <td class="text-left">{% if sort == 'razonsocial' %}<a href="{{ sort_razonsocial }}" class="{{ order|lower }}">{{ column_razonsocial }}</a>{% else %}<a href="{{ sort_razonsocial }}">{{ column_razonsocial }}</a>{% endif %}</td>
+
+						<td class="text-left">{% if sort == 'domicilio' %}<a href="{{ sort_domicilio }}" class="{{ order|lower }}">{{ column_domicilio }}</a>{% else %}<a href="{{ sort_domicilio }}">{{ column_domicilio }}</a>{% endif %}</td>
+						<td class="text-left">{% if sort == 'email' %}<a href="{{ sort_email }}" class="{{ order|lower }}">{{ column_email }}</a>{% else %}<a href="{{ sort_email }}">{{ column_email }}</a>{% endif %}</td>
+
+                      <td class="text-left">{% if sort == 'code' %}<a href="{{ sort_code }}" class="{{ order|lower }}">{{ column_code }}</a>{% else %}<a href="{{ sort_code }}">{{ column_code }}</a>{% endif %}</td>                      
+					  <td class="text-center">ABC</td>
+                      <td class="text-right">{{ column_action }}</td>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% if proveedors %}
+                  {% for proveedor in proveedors %}
+                  <tr>
+                    <td class="text-center">{% if proveedor.proveedor_id in selected %}
+                      <input type="checkbox" name="selected[]" value="{{ proveedor.proveedor_id }}" checked="checked" />
+                      {% else %}
+                      <input type="checkbox" name="selected[]" value="{{ proveedor.proveedor_id }}" />
+                      {% endif %}
+                    </td>
+                      <td class="text-left">{{ proveedor.proveedor_id}}</td>
+                      <td class="text-left">{{ proveedor.razonsocial }}</td>
+					  <td class="text-left"><button type="button" class="btn btn-block" style="background-domicilio:{{ proveedor.domicilio }};"></button></td>
+					  <td class="text-left">{{ proveedor.code }}</td>					  
+                     <td class="text-center">
+					<span class="btn btn-success" data-toggle="tooltip" title="{{ proveedor.date_added }}/{{ proveedor.user_id_added }}"></span>
+					{% if proveedor.date_modified %}
+						<span class="btn btn-warning" data-toggle="tooltip" title="{{ proveedor.date_modified }}/{{ proveedor.user_id_modified }}"></span>
+					{% endif %}
+					{% if proveedor.date_delete %}
+						<span class="btn btn-danger" data-toggle="tooltip" title="{{ proveedor.date_delete }}/{{ proveedor.user_id_delete }}"></span>
+					{% endif %}
+					</td>
+                    <td class="text-right">
+                      <div class="btn-group">
+                        <a href="{{ proveedor.edit }}" data-toggle="tooltip" title="{{ button_edit }}" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+                      </div>
+                    </td>
+                  </tr>
+                  {% endfor %}
+                  {% else %}
+                  <tr>
+                    <td class="text-center" colspan="5">{{ text_no_results }}</td>
+                  </tr>
+                  {% endif %}
+                    </tbody>
+                </table>
+              </div>
+            </form>
+            <div class="row">
+              <div class="col-sm-6 text-left">{{ pagination }}</div>
+              <div class="col-sm-6 text-right">{{ results }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{{ footer }}  
+
+
+<script type="text/javascript" src="view/javascript/gasparesganga/loadingoverlay.min.js"></script>   
+<script type="text/javascript"><!--
+
+
+		
+		function limit() {
+			$.LoadingOverlay("show");
+			url = 'index.php?route=produccion/proveedor&user_token={{ user_token }}';
+			url += filtrar();
+			console.log(url);
+			location = url;
+		}
+		$('#button-filter').on('click', function() {
+			$.LoadingOverlay("show");
+			url = 'index.php?route=produccion/proveedor&user_token={{ user_token }}';
+			url += filtrar();
+			location = url;
+		});  
+		$('#button-filter2').on('click', function() {
+			$.LoadingOverlay("show");
+			url = 'index.php?route=produccion/proveedor&user_token={{ user_token }}';
+			url += filtrar();
+			location = url;
+		});  
+		function filtrar(){
+			url ="";
+			var filter_proveedor_id = $('input[name=\'filter_proveedor_id\']').val();
+			if (filter_proveedor_id) {
+				url += '&filter_proveedor_id=' + encodeURIComponent(filter_proveedor_id);
+			}
+			var filter_numero = $('input[name=\'filter_numero\']').val();
+			if (filter_numero) {
+				url += '&filter_numero=' + encodeURIComponent(filter_numero);
+			}
+			var filter_matricula = $('input[name=\'filter_matricula\']').val();
+			if (filter_matricula) {
+				url += '&filter_matricula=' + encodeURIComponent(filter_matricula);
+			}			
+			var filter_razonsocial = $('input[name=\'filter_razonsocial\']').val();
+			if (filter_razonsocial) {
+				url += '&filter_razonsocial=' + encodeURIComponent(filter_razonsocial);
+			}
+			var filter_status = $('select[name=\'filter_status\']').val();
+			if (filter_status !== '') {
+				url += '&filter_status=' + encodeURIComponent(filter_status); 
+			}
+			var limit = $('select[name=\'limit\']').val();
+			if (limit !== '') {
+				url += '&limit=' + encodeURIComponent(limit); 
+			}	
+			return url;
+		};
+		function download_xlsx(){
+			url = 'index.php?route=produccion/proveedor/download_xlsx&user_token={{ user_token }}';
+			url += filtrar();
+			$.ajax({
+				url: url,
+				dataType: 'text',
+				beforeSend: function() {
+					$.LoadingOverlay("show");
+				},
+				complete: function() {
+					$.LoadingOverlay("hide");
+				},				
+				success: function(json) {
+					location = json;
+				},
+			});	
+		}
+		$('#xlsx-upload').on('click', function() {
+			$('#form-upload').remove();
+			$('body').prepend('<form enctype="multipart/form-data" id="form-upload" style="display: none;"><input type="file" name="file" /></form>');
+			$('#form-upload input[name=\'file\']').trigger('click');
+			if (typeof timer != 'undefined') {
+				clearInterval(timer);
+			}
+			timer = setInterval(function() {
+				if ($('#form-upload input[name=\'file\']').val() != '') {
+					clearInterval(timer);
+					var formData = new FormData($('#form-upload')[0]);
+					$.ajax({
+						url : 'index.php?route=produccion/proveedor/upload_xlsx&user_token={{ user_token }}',
+						type: 'post',
+						dataType: 'json',
+						data: formData,
+						cache: false,
+						contentType: false,
+						processData: false,
+						beforeSend: function() {
+							$.LoadingOverlay("show");
+						},
+						complete: function() {
+							$.LoadingOverlay("hide");
+						},
+						success: function(json) {
+							url = 'index.php?route=produccion/proveedor&user_token={{ user_token }}';
+							url += filtrar();
+							location = url;
+						},
+						error: function(xhr, ajaxOptions, thrownError) {
+							alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+						}
+					});
+				}
+			}, 500);
+		});		
+//--></script>
+<!--SCRIPTS INTOCABLES-->
+<script type="text/javascript"><!--		
+	$('.date').datetimepicker({
+		language: 'ES',
+		pickTime: false
+	});
+//--></script>
