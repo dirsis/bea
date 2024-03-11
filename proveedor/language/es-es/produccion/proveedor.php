@@ -1,17 +1,16 @@
 <?php
 // Heading
-$_['heading_title']         = 'Ejemplos';
+$_['heading_title']         = 'Proveedors';
 
 $_['tab_general'] 			= 'General';
 	
 // Column
-$_['column_ejemplo_id'] 	    = 'ID';
-$_['column_descrip'] 		= 'Descripcion';
-$_['column_nota'] 		    = 'Nota';
-$_['column_code'] 			= 'Codigo';
-$_['column_number'] 			= 'Color';
-$_['column_status'] 		= 'Estado';
-$_['column_action'] 		= 'Acci&oacute;n';  
+$_['column_Proveedor_id'] 	    = 'ID';
+$_['column_razonsocial'] 		= 'Razon Social';
+$_['column_domicilio'] 		    = 'Domicilio';
+$_['column_email'] 			    = 'EMail';
+$_['column_status'] 		    = 'Estado';
+$_['column_action'] 		    = 'Acci&oacute;n';  
 $_['column_date_added'] 		= 'Fecha de Alta';
 $_['column_date_modified'] 		= 'Fecha de Modificacion';
 $_['column_date_delete'] 		= 'Fecha de Eliminacion';
@@ -36,7 +35,7 @@ $_['entry_date_init'] = 'Fecha Inicial';
 $_['entry_date_fin'] = 'Fecha Final';
 
 // Entry
-$_['entry_ejemplo_id'] 		= 'ID';
+$_['entry_Proveedor_id'] 		= 'ID';
 $_['entry_descrip'] 		= 'Descripcion';
 $_['entry_nota'] 		    = 'Nota';
 $_['entry_code'] 			= 'Codigo';

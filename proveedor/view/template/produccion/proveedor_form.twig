@@ -3,7 +3,7 @@
   <div class="page-header">
     <div class="container-fluid">
       <div class="pull-right">
-        <button type="button" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary" onclick="$.LoadingOverlay('show');document.getElementById('form-ejemplo').submit();"><i class="fa fa-save"></i></button>
+        <button type="button" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary" onclick="$.LoadingOverlay('show');document.getElementById('form-proveedor').submit();"><i class="fa fa-save"></i></button>
         <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
       <h1>{{ heading_title }}</h1>
       <ul class="breadcrumb">
@@ -24,16 +24,16 @@
         <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_form }}</h3>
       </div>
       <div class="panel-body">
-        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-ejemplo" class="form-horizontal">
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-proveedor" class="form-horizontal">
           <ul class="nav nav-tabs">
             <li class="active"><a href="#tab-general" data-toggle="tab">{{ tab_general }}</a></li>
           </ul>
           <div class="tab-content">
             <div class="tab-pane active" id="tab-general">
 				<div class="form-group">
-					<label class="col-sm-2 control-label" for="input-ejemplo-id">{{ entry_ejemplo_id }}</label>
+					<label class="col-sm-2 control-label" for="input-proveedor-id">{{ entry_proveedor_id }}</label>
 					<div class="col-sm-10">
-						<input type="text" readonly name="ejemplo_id" value="{{ ejemplo_id }}" placeholder="{{ entry_ejemplo_id }}" id="input-ejemplo-id" class="form-control" style="width:100px;" />
+						<input type="text" readonly name="proveedor_id" value="{{ proveedor_id }}" placeholder="{{ entry_proveedor_id }}" id="input-proveedor-id" class="form-control" style="width:100px;" />
 					</div>
                 </div>
 				<div class="form-group">
