@@ -1,0 +1,98 @@
+{{ header }}{{ column_left }}
+<div id="content">
+  <div class="page-header">
+    <div class="container-fluid">
+      <div class="pull-right">
+        <button type="button" data-toggle="tooltip" title="{{ button_save }}" class="btn btn-primary" onclick="$.LoadingOverlay('show');document.getElementById('form-ejemplo').submit();"><i class="fa fa-save"></i></button>
+        <a href="{{ cancel }}" data-toggle="tooltip" title="{{ button_cancel }}" class="btn btn-default"><i class="fa fa-reply"></i></a></div>
+      <h1>{{ heading_title }}</h1>
+      <ul class="breadcrumb">
+        {% for breadcrumb in breadcrumbs %}
+        <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <div class="container-fluid"> 
+   {% if error_warning %}
+    <div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> {{ error_warning }}
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+    </div>
+    {% endif %}
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title"><i class="fa fa-pencil"></i> {{ text_form }}</h3>
+      </div>
+      <div class="panel-body">
+        <form action="{{ action }}" method="post" enctype="multipart/form-data" id="form-ejemplo" class="form-horizontal">
+          <ul class="nav nav-tabs">
+            <li class="active"><a href="#tab-general" data-toggle="tab">{{ tab_general }}</a></li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane active" id="tab-general">
+				<div class="form-group">
+					<label class="col-sm-2 control-label" for="input-ejemplo-id">{{ entry_ejemplo_id }}</label>
+					<div class="col-sm-10">
+						<input type="text" readonly name="ejemplo_id" value="{{ ejemplo_id }}" placeholder="{{ entry_ejemplo_id }}" id="input-ejemplo-id" class="form-control" style="width:100px;" />
+					</div>
+                </div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label" for="input-descrip">{{ entry_descrip }}</label>
+					<div class="col-sm-10">
+						<input type="text" name="descrip" value="{{ descrip }}" placeholder="{{ entry_descrip }}" id="input-descrip" class="form-control"/>
+					</div>
+        </div>					
+				<div class="form-group required">
+				  <label class="col-sm-2 control-label" for="input-number">{{ entry_number }}</label>
+				  <div class="col-sm-10">
+				  	<input type="number" name="number" value="{{ number }}" placeholder="{{ entry_number }}" id="input-number" class="form-control" />
+				  </div>
+				</div>			
+				<div class="form-group required">
+				  <label class="col-sm-2 control-label" for="input-code">{{ entry_code }}</label>
+				  <div class="col-sm-10">
+				  	<input type="text" name="code" value="{{ code }}" placeholder="{{ entry_code }}" id="input-code" class="form-control" />
+				  </div>
+				</div>				
+				<div class="form-group">
+                          <label class="col-sm-2 control-label" for="input-status">{{ entry_status }}</label>
+                          <div class="col-sm-10">
+                            <select name="status" id="input-status" class="form-control">
+                              {% if status=='1' %}
+                              <option value="1" selected="selected">{{ text_enabled }}</option>
+                              <option value="0">{{ text_disabled }}</option>
+                              {% else %}
+                              <option value="1">{{ text_enabled }}</option>
+                              <option value="0" selected="selected">{{ text_disabled }}</option>
+                              {% endif %}
+                            </select>
+                          </div>
+				</div>	
+				<div class="form-group">
+					<label class="col-sm-2 control-label">Logs</label>
+					<div class="col-sm-10">
+						<a href="#">{{ entry_date_added }} <span class="badge">{{ date_added }}/{{ user_id_added }}</span></a>
+						{% if user_id_modified %}
+						<a href="#">{{ entry_date_modified }} <span class="badge">{{ date_modified }}/{{ user_id_modified }}</span></a>
+						{% endif %}
+						{% if user_id_delete %}
+						<a href="#">{{ entry_date_delete }} <span class="badge">{{ date_delete }}/{{ user_id_delete }}</span></a>
+						{% endif %}
+					</div>
+				</div>				
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{{ footer }} 
+
+<script type="text/javascript" src="view/javascript/gasparesganga/loadingoverlay.min.js"></script>
+<script type="text/javascript"><!--
+  	$('.date').datetimepicker({
+    	language: 'ES',
+    	pickTime: false
+	});
+//--></script>
