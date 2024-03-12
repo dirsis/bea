@@ -21,10 +21,10 @@ pasos:
 4.cambiar de nombre a todos los archivos disponibles - ejemplo > xxxxx (siempre empezar por Model)
 5.cambiar de titulo en todos los archivos - Ejemplo x xxxxx y ejemplo x xxxx (siempre empezar por Model)
 6.cambiar de campos  y su idioma x los pedidos.(siempre empezar por Model)
-$_['column_descrip'] 		= 'Descripcion';
-$_['column_nota'] 		    = 'Nota';
-$_['column_code'] 			= 'Codigo';
-$_['column_number'] 			= 'Color';
+		descrip
+		cantidad
+		fecha
+
 SOLO ESTOS CAMPOS!!!!
 eN model CAMBIAR CON LA CANTIDAD, EN LANGUAJE TBN. SACAR LOS DE ARRIBA POR LOS PEDIDOS.
 ---------------------------------
