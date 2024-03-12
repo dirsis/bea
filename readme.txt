@@ -1,14 +1,9 @@
 xxxx:
-proveedor
+deposito
 
 field:
 
-razonsocial varchar200 default ''
-domicilio varchar100 default 'Cordoba'
-email varchar140 default ''
-
-
-
+descrip varchar200 default ''
 
 AYUDA---------------------------------------------------------------------------------
 pasos:
@@ -24,9 +19,9 @@ pasos:
 		descrip
 		cantidad
 		fecha
-
 SOLO ESTOS CAMPOS!!!!
 eN model CAMBIAR CON LA CANTIDAD, EN LANGUAJE TBN. SACAR LOS DE ARRIBA POR LOS PEDIDOS.
+(*)LOS EJEMPLOS SON 3 CAMPOS, SI SE PIDE MENOS, BORRAR LOS SOBRANTES DE ESOS 3
 ---------------------------------
 7.sube
 
