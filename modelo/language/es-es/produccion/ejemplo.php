@@ -1,16 +1,19 @@
 <?php
 // Heading
-$_['heading_title']         = 'Proveedors';
+$_['heading_title']         = 'Ejemplos';
 
 $_['tab_general'] 			= 'General';
 	
 // Column
-$_['column_Proveedor_id'] 	    = 'ID';
-$_['column_razonsocial'] 		= 'Razon Social';
-$_['column_nota'] 		    = 'Nota';
-$_['column_code'] 			= 'Codigo';
-$_['column_domicilio'] 			= 'Domicilio';
-$_['column_email'] 			= 'Email';
+$_['column_ejemplo_id'] 	    = 'ID';
+
+//BEA
+$_['column_detalle'] 		= 'Detalle';
+$_['column_cantidad'] 		    = 'Cantidad';
+$_['column_fecha'] 			= 'Fecha';
+//FINBEA
+
+
 $_['column_status'] 		= 'Estado';
 $_['column_action'] 		= 'Acci&oacute;n';  
 $_['column_date_added'] 		= 'Fecha de Alta';
@@ -37,12 +40,14 @@ $_['entry_date_init'] = 'Fecha Inicial';
 $_['entry_date_fin'] = 'Fecha Final';
 
 // Entry
-$_['entry_Proveedor_id'] 		= 'ID';
-$_['entry_razonsocial'] 		= 'Razon Social';
-$_['entry_nota'] 		    = 'Nota';
-$_['entry_code'] 			= 'Codigo';
-$_['entry_domicilio'] 			= 'Domicilio';
-$_['entry_email'] 			= 'Email';
+$_['entry_ejemplo_id'] 		= 'ID';
+
+//BEA
+$_['entry_detalle'] 		= 'Detalle';
+$_['entry_cantidad'] 		    = 'Cantidad';
+$_['entry_fecha'] 			= 'Fecha';
+//FINBEA
+
 $_['entry_status'] 			= 'Estado';
 $_['entry_action'] 			= 'Acci&oacute;n';  
 $_['entry_date_added'] 		= 'Fecha de Alta';
@@ -59,7 +64,7 @@ $_['help_texto'] = 'debe ingresar nombre';
 $_['error_warning'] = 'Advertencia: Por favor, consulte el formulario cuidadosamente de errores';
 $_['error_permission'] = 'Advertencia: Usted no tiene permiso para modificar clientes!';
 $_['error_exists'] = 'Advertencia: Direcci&oacute;n de correo electr&oacute;nico ya est&aacute; registrado!';
-$_['error_razonsocial'] = 'Nombre debe estar entre 1 y 200 caracteres!';
+$_['error_detalle'] = 'Nombre debe estar entre 1 y 200 caracteres!';
 
 
 

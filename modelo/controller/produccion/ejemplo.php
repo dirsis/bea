@@ -1,5 +1,5 @@
 <?php
-class ControllerProduccionMaquina extends Controller {
+class ControllerProduccionEjemplo extends Controller {
 	private $error = array();
 
 	public function index() {
@@ -7,23 +7,23 @@ class ControllerProduccionMaquina extends Controller {
 		error_reporting(E_ALL);
 		ini_set('display_errors', '1');
 		//
-		$this->load->language('produccion/Maquina');
+		$this->load->language('produccion/ejemplo');
 		$this->document->setTitle($this->language->get('heading_title'));
-		$this->load->model('produccion/Maquina');
+		$this->load->model('produccion/ejemplo');
 		//CREA LA TABLA SI NO EXISTE
-		//$this->model_produccion_Maquina->bajaMaquina();
-		$this->model_produccion_Maquina->creaMaquina();
+		//$this->model_produccion_ejemplo->bajaEjemplo();
+		$this->model_produccion_ejemplo->creaEjemplo();
 		
 		//			
 		$this->getList();
 	}
 	public function sincro(){
-		$this->load->language('produccion/Maquina');
-		$this->load->model('produccion/Maquina');
-		$this->model_produccion_Maquina->traeMaquina();
+		$this->load->language('produccion/ejemplo');
+		$this->load->model('produccion/ejemplo');
+		$this->model_produccion_ejemplo->traeEjemplo();
 		$this->session->data['success'] = $this->language->get('text_success');
 		$url = $this->filtrar($this->request->get,"gral");
-		$this->response->redirect($this->url->link('produccion/Maquina', 'user_token=' . $this->session->data['user_token'] . $url, true));
+		$this->response->redirect($this->url->link('produccion/ejemplo', 'user_token=' . $this->session->data['user_token'] . $url, true));
 	}
 	
 	public function filtrar($get,$accion="gral"){
@@ -32,7 +32,7 @@ class ControllerProduccionMaquina extends Controller {
 		if (isset($this->request->get['sort'])) {
 			$sort = $this->request->get['sort'];
 		} else {
-			$sort = 'code';
+			$sort = 'fecha';
 		}
 
 		if (isset($this->request->get['order'])) {
@@ -50,8 +50,8 @@ class ControllerProduccionMaquina extends Controller {
 		$url='';
 
 		//generico
-		if (isset($get['filter_Maquina_id'])) {
-			$url .= '&filter_Maquina_id=' . $get['filter_Maquina_id'];
+		if (isset($get['filter_ejemplo_id'])) {
+			$url .= '&filter_ejemplo_id=' . $get['filter_ejemplo_id'];
 		}
 		if (isset($get['filter_status'])) {
 			$url .= '&filter_status=' . $get['filter_status'];
@@ -120,25 +120,25 @@ class ControllerProduccionMaquina extends Controller {
 		error_reporting(E_ALL);
 		ini_set('display_errors', '1');
 		//		
-		$this->load->language('produccion/Maquina');
+		$this->load->language('produccion/ejemplo');
 		$this->document->setTitle($this->language->get('heading_title'));
-		$this->load->model('produccion/Maquina');
+		$this->load->model('produccion/ejemplo');
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
 			
 
 			
-			$this->model_produccion_Maquina->addMaquina($this->request->post);
+			$this->model_produccion_ejemplo->addEjemplo($this->request->post);
 			$this->session->data['success'] = $this->language->get('text_success');
 			$url = $this->filtrar($this->request->get,"gral");
-			$this->response->redirect($this->url->link('produccion/Maquina', 'user_token=' . $this->session->data['user_token'] . $url, true));
+			$this->response->redirect($this->url->link('produccion/ejemplo', 'user_token=' . $this->session->data['user_token'] . $url, true));
 		}
 		$this->getForm();
 	}
 	
 	public function edit() {
-		$this->load->language('produccion/Maquina');
+		$this->load->language('produccion/ejemplo');
 		$this->document->setTitle($this->language->get('heading_title'));
-		$this->load->model('produccion/Maquina');
+		$this->load->model('produccion/ejemplo');
 		if (($this->request->server['REQUEST_METHOD'] == 'POST') && $this->validateForm()) {
 			
 			/*
@@ -147,43 +147,43 @@ class ControllerProduccionMaquina extends Controller {
 			echo "</pre>";
 			die;
 			*/
-			$this->model_produccion_Maquina->editMaquina($this->request->get['Maquina_id'], $this->request->post);
+			$this->model_produccion_ejemplo->editEjemplo($this->request->get['ejemplo_id'], $this->request->post);
 			$this->session->data['success'] = $this->language->get('text_success');
 			$url = $this->filtrar($this->request->get);
-			$this->response->redirect($this->url->link('produccion/Maquina', 'user_token=' . $this->session->data['user_token'] . $url, true));
+			$this->response->redirect($this->url->link('produccion/ejemplo', 'user_token=' . $this->session->data['user_token'] . $url, true));
 		}
 		$this->getForm();
 	}
 	
 	public function delete() {
-		$this->load->language('produccion/Maquina');
+		$this->load->language('produccion/ejemplo');
 		$this->document->setTitle($this->language->get('heading_title'));
-		$this->load->model('produccion/Maquina');
+		$this->load->model('produccion/ejemplo');
 		if (isset($this->request->post['selected']) && $this->validateDelete()) {
-			foreach ($this->request->post['selected'] as $Maquina_id) {
-				$this->model_produccion_Maquina->deleteMaquina($Maquina_id);
+			foreach ($this->request->post['selected'] as $ejemplo_id) {
+				$this->model_produccion_ejemplo->deleteEjemplo($ejemplo_id);
 			}
 			$this->session->data['success'] = $this->language->get('text_success');
 			$url = $this->filtrar($this->request->get,"gral");
-			$this->response->redirect($this->url->link('produccion/Maquina', 'user_token=' . $this->session->data['user_token'] . $url, true));
+			$this->response->redirect($this->url->link('produccion/ejemplo', 'user_token=' . $this->session->data['user_token'] . $url, true));
 		}
 		$this->getList();
 	}
 	
 	
 	public function copy() {
-		$this->load->language('produccion/Maquina');
+		$this->load->language('produccion/ejemplo');
 		$this->document->setTitle($this->language->get('heading_title'));
-		$this->load->model('produccion/Maquina');
+		$this->load->model('produccion/ejemplo');
 
 		if (isset($this->request->post['selected']) && $this->validateCopy()) {
-			foreach ($this->request->post['selected'] as $Maquina_id) {
-				$this->model_produccion_Maquina->copyMaquina($Maquina_id);
+			foreach ($this->request->post['selected'] as $ejemplo_id) {
+				$this->model_produccion_ejemplo->copyEjemplo($ejemplo_id);
 			}
 			
 			$this->session->data['success'] = $this->language->get('text_success');
 			$url = $this->filtrar($this->request->get,"gral");
-			$this->response->redirect($this->url->link('produccion/Maquina', 'user_token=' . $this->session->data['user_token'] . $url, true));
+			$this->response->redirect($this->url->link('produccion/ejemplo', 'user_token=' . $this->session->data['user_token'] . $url, true));
 		}
 
 		$this->getList();
@@ -191,15 +191,15 @@ class ControllerProduccionMaquina extends Controller {
 	
 	protected function getList() {
 
-		if (isset($this->request->get['filter_Maquina_id'])) {
-			$filter_Maquina_id = $this->request->get['filter_Maquina_id'];
+		if (isset($this->request->get['filter_ejemplo_id'])) {
+			$filter_ejemplo_id = $this->request->get['filter_ejemplo_id'];
 		} else {
-			$filter_Maquina_id = '';
+			$filter_ejemplo_id = '';
 		}
-		if (isset($this->request->get['filter_denomina'])) {
-			$filter_denomina = $this->request->get['filter_denomina'];
+		if (isset($this->request->get['filter_detalle'])) {
+			$filter_detalle = $this->request->get['filter_detalle'];
 		} else {
-			$filter_denomina = '';
+			$filter_detalle = '';
 		}
 		if (isset($this->request->get['filter_nota'])) {
 			$filter_nota = $this->request->get['filter_nota'];
@@ -216,7 +216,7 @@ class ControllerProduccionMaquina extends Controller {
 		if (isset($this->request->get['sort'])) {
 			$sort = $this->request->get['sort'];
 		} else {
-			$sort = 'code';
+			$sort = 'fecha';
 		}
 
 		if (isset($this->request->get['order'])) {
@@ -249,19 +249,19 @@ class ControllerProduccionMaquina extends Controller {
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
-			'href' => $this->url->link('produccion/Maquina', 'user_token=' . $this->session->data['user_token'] . $url, true)
+			'href' => $this->url->link('produccion/ejemplo', 'user_token=' . $this->session->data['user_token'] . $url, true)
 		);
 
-		$data['add'] = $this->url->link('produccion/Maquina/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
+		$data['add'] = $this->url->link('produccion/ejemplo/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
 		
-		$data['delete'] = $this->url->link('produccion/Maquina/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
+		$data['delete'] = $this->url->link('produccion/ejemplo/delete', 'user_token=' . $this->session->data['user_token'] . $url, true);
 		
-		$data['copy'] = $this->url->link('produccion/Maquina/copy', 'user_token=' . $this->session->data['user_token'] . $url, true);
+		$data['copy'] = $this->url->link('produccion/ejemplo/copy', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
-		$data['Maquinas'] = array();
+		$data['ejemplos'] = array();
 		$filter_data = array(
-			'filter_Maquina_id'         => $filter_Maquina_id,
-			'filter_denomina'   			=> $filter_denomina,
+			'filter_ejemplo_id'         => $filter_ejemplo_id,
+			'filter_detalle'   			=> $filter_detalle,
 			'filter_status'            => $filter_status,
 			'sort'                     => $sort,
 			'order'                    => $order,
@@ -269,10 +269,10 @@ class ControllerProduccionMaquina extends Controller {
 			'limit'                    => $limit
 		);
  
-		$Maquina_total = $this->model_produccion_Maquina->getTotalMaquinas($filter_data);
+		$ejemplo_total = $this->model_produccion_ejemplo->getTotalEjemplos($filter_data);
 
 		$this->load->model('user/user');
-		$results = $this->model_produccion_Maquina->getMaquinas($filter_data);
+		$results = $this->model_produccion_ejemplo->getEjemplos($filter_data);
 
 		foreach ($results as $result) {
 			
@@ -293,12 +293,13 @@ class ControllerProduccionMaquina extends Controller {
 				$user_id_delete="";
 			}
 
-			$data['Maquinas'][] = array(
-				'Maquina_id'    	=> $result['Maquina_id'],
-				'denomina'    		=> $result['denomina'],
-				'code'    			=> $result['code'],
-				'modelo'    			=> $result['modelo'],
-				'indice'    			=> $result['indice'],
+			$data['ejemplos'][] = array(
+				'ejemplo_id'    	=> $result['ejemplo_id'],
+
+				'detalle'    		=> $result['detalle'],
+				'cantidad'    		=> $result['cantidad'],
+				'fecha'    			=> $result['fecha'],
+
 				'date_added'        => $result['date_added']?date('d-m-Y', strtotime($result['date_added'])):"",
 				'status'         	=> ($result['status']=='1' ? $this->language->get('text_enabled') : $this->language->get('text_disabled')),
 				'date_modified'     => $result['date_modified']==""?"":date('d-m-Y', strtotime($result['date_modified'])),
@@ -306,8 +307,8 @@ class ControllerProduccionMaquina extends Controller {
 				'user_id_added'		=> $user_id_added,
 				'user_id_modified'	=> $user_id_modified,
 				'user_id_delete'	=> $user_id_delete,
-				'edit'           	=> $this->url->link('produccion/Maquina/edit', 'user_token=' . $this->session->data['user_token'] . '&Maquina_id=' . $result['Maquina_id'] . $url, true),
-				'clonar'           	=> $this->url->link('produccion/Maquina/clonar', 'user_token=' . $this->session->data['user_token'] . '&Maquina_id=' . $result['Maquina_id'] . $url, true)				
+				'edit'           	=> $this->url->link('produccion/ejemplo/edit', 'user_token=' . $this->session->data['user_token'] . '&ejemplo_id=' . $result['ejemplo_id'] . $url, true),
+				'clonar'           	=> $this->url->link('produccion/ejemplo/clonar', 'user_token=' . $this->session->data['user_token'] . '&ejemplo_id=' . $result['ejemplo_id'] . $url, true)				
 			);
 		}
 
@@ -334,26 +335,26 @@ class ControllerProduccionMaquina extends Controller {
 		}
 
 		$url = $this->filtrar($this->request->get,"column");
-		$data['sort_Maquina_id'] = $this->url->link('produccion/Maquina', 'user_token=' . $this->session->data['user_token'] . '&sort=Maquina_id' . $url, true);
+		$data['sort_ejemplo_id'] = $this->url->link('produccion/ejemplo', 'user_token=' . $this->session->data['user_token'] . '&sort=ejemplo_id' . $url, true);
 		
-		$data['sort_denomina'] = $this->url->link('produccion/Maquina', 'user_token=' . $this->session->data['user_token'] . '&sort=denomina' . $url, true);
+		$data['sort_detalle'] = $this->url->link('produccion/ejemplo', 'user_token=' . $this->session->data['user_token'] . '&sort=detalle' . $url, true);
 		
-		$data['sort_code'] = $this->url->link('produccion/Maquina', 'user_token=' . $this->session->data['user_token'] . '&sort=code' . $url, true);		
+		$data['sort_fecha'] = $this->url->link('produccion/ejemplo', 'user_token=' . $this->session->data['user_token'] . '&sort=fecha' . $url, true);		
 		
 		$url = $this->filtrar($this->request->get,"nopage");
 		
 		$pagination = new Pagination();
-		$pagination->total = $Maquina_total;
+		$pagination->total = $ejemplo_total;
 		$pagination->page = $page;
 		$pagination->limit = $limit;
-		$pagination->url = $this->url->link('produccion/Maquina', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
+		$pagination->url = $this->url->link('produccion/ejemplo', 'user_token=' . $this->session->data['user_token'] . $url . '&page={page}', true);
 
 		$data['pagination'] = $pagination->render();
 
-		$data['results'] = sprintf($this->language->get('text_pagination'), ($Maquina_total) ? (($page - 1) *  $limit) + 1 : 0, ((($page - 1) *  $limit) > ($Maquina_total -  $limit)) ? $Maquina_total : ((($page - 1) *  $limit) +  $limit), $Maquina_total, ceil($Maquina_total /  $limit));
+		$data['results'] = sprintf($this->language->get('text_pagination'), ($ejemplo_total) ? (($page - 1) *  $limit) + 1 : 0, ((($page - 1) *  $limit) > ($ejemplo_total -  $limit)) ? $ejemplo_total : ((($page - 1) *  $limit) +  $limit), $ejemplo_total, ceil($ejemplo_total /  $limit));
 
-		$data['filter_Maquina_id'] = $filter_Maquina_id;
-		$data['filter_denomina'] = $filter_denomina;
+		$data['filter_ejemplo_id'] = $filter_ejemplo_id;
+		$data['filter_detalle'] = $filter_detalle;
 		$data['filter_status'] = $filter_status;
 
 		$data['sort'] = $sort;
@@ -363,7 +364,7 @@ class ControllerProduccionMaquina extends Controller {
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
 
-		$this->response->setOutput($this->load->view('produccion/Maquina_list', $data));
+		$this->response->setOutput($this->load->view('produccion/ejemplo_list', $data));
 	}
 
 	protected function getForm() {
@@ -372,7 +373,7 @@ class ControllerProduccionMaquina extends Controller {
 		error_reporting(E_ALL);
 		ini_set('display_errors', '1');
 		
-		$data['text_form'] = !isset($this->request->get['Maquina_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
+		$data['text_form'] = !isset($this->request->get['ejemplo_id']) ? $this->language->get('text_add') : $this->language->get('text_edit');
 
 		$data['user_token'] = $this->session->data['user_token'];
 
@@ -392,56 +393,49 @@ class ControllerProduccionMaquina extends Controller {
 
 		$data['breadcrumbs'][] = array(
 			'text' => $this->language->get('heading_title'),
-			'href' => $this->url->link('produccion/Maquina', 'user_token=' . $this->session->data['user_token'] . $url, true)
+			'href' => $this->url->link('produccion/ejemplo', 'user_token=' . $this->session->data['user_token'] . $url, true)
 		);
 
-		if (!isset($this->request->get['Maquina_id'])) {
-			$data['action'] = $this->url->link('produccion/Maquina/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
+		if (!isset($this->request->get['ejemplo_id'])) {
+			$data['action'] = $this->url->link('produccion/ejemplo/add', 'user_token=' . $this->session->data['user_token'] . $url, true);
 		} else {
-			$data['action'] = $this->url->link('produccion/Maquina/edit', 'user_token=' . $this->session->data['user_token'] . '&Maquina_id=' . $this->request->get['Maquina_id'] . $url, true);
+			$data['action'] = $this->url->link('produccion/ejemplo/edit', 'user_token=' . $this->session->data['user_token'] . '&ejemplo_id=' . $this->request->get['ejemplo_id'] . $url, true);
 		}
 
-		$data['cancel'] = $this->url->link('produccion/Maquina', 'user_token=' . $this->session->data['user_token'] . $url, true);
+		$data['cancel'] = $this->url->link('produccion/ejemplo', 'user_token=' . $this->session->data['user_token'] . $url, true);
 
-		if (isset($this->request->get['Maquina_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
-			$info = $this->model_produccion_Maquina->getMaquina($this->request->get['Maquina_id']);
+		if (isset($this->request->get['ejemplo_id']) && ($this->request->server['REQUEST_METHOD'] != 'POST')) {
+			$info = $this->model_produccion_ejemplo->getEjemplo($this->request->get['ejemplo_id']);
 		}
 
-		if (isset($this->request->get['Maquina_id'])) {
-			$data['Maquina_id'] = $this->request->get['Maquina_id'];
+		if (isset($this->request->get['ejemplo_id'])) {
+			$data['ejemplo_id'] = $this->request->get['ejemplo_id'];
 		} else {
-			$data['Maquina_id'] = 0;
+			$data['ejemplo_id'] = 0;
 		}
 
-		if (isset($this->request->post['denomina'])) {
-			$data['denomina'] = $this->request->post['denomina'];
+		if (isset($this->request->post['detalle'])) {
+			$data['detalle'] = $this->request->post['detalle'];
 		} elseif (!empty($info)) {
-			$data['denomina'] = $info['denomina'];
+			$data['detalle'] = $info['detalle'];
 		} else {
-			$data['denomina'] = '';
+			$data['detalle'] = '';
 		}		
 		
-		if (isset($this->request->post['code'])) {
-			$data['code'] = $this->request->post['code'];
+		if (isset($this->request->post['fecha'])) {
+			$data['fecha'] = $this->request->post['fecha'];
 		} elseif (!empty($info)) {
-			$data['code'] = $info['code'];
+			$data['fecha'] = $info['fecha'];
 		} else {
-			$data['code'] = '';
+			$data['fecha'] = '';
 		}		
 
-		if (isset($this->request->post['modelo'])) {
-			$data['modelo'] = $this->request->post['modelo'];
+		if (isset($this->request->post['cantidad'])) {
+			$data['cantidad'] = $this->request->post['cantidad'];
 		} elseif (!empty($info)) {
-			$data['modelo'] = $info['modelo'];
+			$data['cantidad'] = $info['cantidad'];
 		} else {
-			$data['modelo'] = '';
-		}	
-		if (isset($this->request->post['indice'])) {
-			$data['indice'] = $this->request->post['indice'];
-		} elseif (!empty($info)) {
-			$data['indice'] = $info['indice'];
-		} else {
-			$data['indice'] = '';
+			$data['cantidad'] = '';
 		}		
 		
 		if (isset($this->request->post['date_added'])) {
@@ -500,15 +494,15 @@ class ControllerProduccionMaquina extends Controller {
 		$data['header'] = $this->load->controller('common/header');
 		$data['column_left'] = $this->load->controller('common/column_left');
 		$data['footer'] = $this->load->controller('common/footer');
-		$this->response->setOutput($this->load->view('produccion/Maquina_form', $data));
+		$this->response->setOutput($this->load->view('produccion/ejemplo_form', $data));
 	}
 
 	protected function validateForm() {
-		if (!$this->user->hasPermission('modify', 'produccion/Maquina')) {
+		if (!$this->user->hasPermission('modify', 'produccion/ejemplo')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
-		if ((utf8_strlen($this->request->post['denomina']) < 1) || (utf8_strlen(trim($this->request->post['denomina'])) > 200)) {
-			$this->error['denomina'] = $this->language->get('error_denomina');
+		if ((utf8_strlen($this->request->post['detalle']) < 1) || (utf8_strlen(trim($this->request->post['detalle'])) > 200)) {
+			$this->error['detalle'] = $this->language->get('error_detalle');
 		}
 		if ($this->error && !isset($this->error['warning'])) {
 			$this->error['warning'] = $this->language->get('error_warning');
@@ -517,7 +511,7 @@ class ControllerProduccionMaquina extends Controller {
 	}
 
 	protected function validateDelete() {
-		if (!$this->user->hasPermission('modify', 'produccion/Maquina')) {
+		if (!$this->user->hasPermission('modify', 'produccion/ejemplo')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
 
@@ -525,7 +519,7 @@ class ControllerProduccionMaquina extends Controller {
 	}
 	
 	protected function validateCopy() {
-		if (!$this->user->hasPermission('modify', 'produccion/Maquina')) {
+		if (!$this->user->hasPermission('modify', 'produccion/ejemplo')) {
 			$this->error['warning'] = $this->language->get('error_permission');
 		}
 
@@ -534,15 +528,15 @@ class ControllerProduccionMaquina extends Controller {
 		
 	public function download_xlsx() {
 	
-		if (isset($this->request->get['filter_Maquina_id'])) {
-			$filter_Maquina_id = $this->request->get['filter_Maquina_id'];
+		if (isset($this->request->get['filter_ejemplo_id'])) {
+			$filter_ejemplo_id = $this->request->get['filter_ejemplo_id'];
 		} else {
-			$filter_Maquina_id = '';
+			$filter_ejemplo_id = '';
 		}
-		if (isset($this->request->get['filter_denomina'])) {
-			$filter_denomina = $this->request->get['filter_denomina'];
+		if (isset($this->request->get['filter_detalle'])) {
+			$filter_detalle = $this->request->get['filter_detalle'];
 		} else {
-			$filter_denomina = '';
+			$filter_detalle = '';
 		}
 
 		
@@ -561,7 +555,7 @@ class ControllerProduccionMaquina extends Controller {
 		if (isset($this->request->get['sort'])) {
 			$sort = $this->request->get['sort'];
 		} else {
-			$sort = 'code';
+			$sort = 'fecha';
 		}
 
 		if (isset($this->request->get['order'])) {
@@ -580,10 +574,10 @@ class ControllerProduccionMaquina extends Controller {
 		}else{
 			$limit = $this->config->get('config_limit_admin');
 		}
-		$data['Maquinas'] = array();
+		$data['ejemplos'] = array();
 		$filter_data = array(
-			'filter_Maquina_id'        => $filter_Maquina_id,
-			'filter_denomina'           => $filter_denomina,
+			'filter_ejemplo_id'        => $filter_ejemplo_id,
+			'filter_detalle'           => $filter_detalle,
 			'filter_nota'           => $filter_nota,
 			'filter_status'            => $filter_status,
 			'sort'                     => $sort,
@@ -591,8 +585,8 @@ class ControllerProduccionMaquina extends Controller {
 			'start'                    => ($page - 1) * $limit,
 			'limit'                    => $limit
 		);
-		$this->load->model('produccion/Maquina');
-		$results = $this->model_produccion_Maquina->getMaquinas($filter_data);
+		$this->load->model('produccion/ejemplo');
+		$results = $this->model_produccion_ejemplo->getEjemplos($filter_data);
 	
 	
 		//XLSX
@@ -606,7 +600,7 @@ class ControllerProduccionMaquina extends Controller {
 					->setLastModifiedBy("dirsis.com.ar")
 					->setTitle("Exportar XLSX")
 					->setSubject("Excel")
-					->setMaquina("reportes");
+					->setEjemplo("reportes");
 		/* Datos Hojas */
 		$row=1;
 			$objPHPExcel->setActiveSheetIndex(0)
@@ -618,8 +612,8 @@ class ControllerProduccionMaquina extends Controller {
 		$row++;	
 		foreach ($results as $result) {
 			$objPHPExcel->setActiveSheetIndex(0)
-					->setCellValue('A'.$row,  $result['Maquina_id'])
-					->setCellValue('B'.$row,  $result['denomina'])
+					->setCellValue('A'.$row,  $result['ejemplo_id'])
+					->setCellValue('B'.$row,  $result['detalle'])
 					->setCellValue('C'.$row,  $result['nota'])
 					->setCellValue('D'.$row,  $result['status'])
 					->setCellValue('E'.$row,  date('d-m-Y', strtotime($result['date_added'])));
@@ -661,24 +655,23 @@ class ControllerProduccionMaquina extends Controller {
 		$excel = $reader->load($inputFileName);
 		$sheet = $excel->getActiveSheet();
 		$data = $sheet->toArray();
-		$this->load->model('produccion/Maquina');
+		$this->load->model('produccion/ejemplo');
 		$edit=$new=$linea=0;
 		foreach ($data as $in_ar){
 			if (!empty($in_ar[1]) and $linea>0){
 				$dato=array(
-					"denomina" => $in_ar[1],
-					"nota" => $in_ar[2],
-					"code" => $in_ar[3],
-					"status" => $in_ar[4],
-					"date_added" => date("Y-m-d",strtotime($in_ar[3]))
+					"detalle" => $in_ar[1],
+					"cantidad" => $in_ar[2],
+					"fecha" => $in_ar[3],
+					"status" => 1
 				);
 				if ((int)$in_ar[0]>0){
 					//EDITAR
-					$this->model_produccion_Maquina->editMaquina($in_ar[0],$dato);
+					$this->model_produccion_ejemplo->editEjemplo($in_ar[0],$dato);
 					$edit++;
 				}else{
 					//NUEVO
-					$this->model_produccion_Maquina->addMaquina($dato);			
+					$this->model_produccion_ejemplo->addEjemplo($dato);			
 					$new++;
 				}
 			}

@@ -9,8 +9,11 @@ class ModelProduccionEjemplo extends Model {
 		$sql="CREATE TABLE IF NOT EXISTS p" . DB_PREFIX . "ejemplo (
   			ejemplo_id int(11) NOT NULL  AUTO_INCREMENT,
 
-			descrip varchar(200) DEFAULT NULL,
-			number(20) DEFAULT NULL			
+			
+			detalle varchar(200) DEFAULT '',
+			cantidad int(11) NOT NULL DEFAULT 1,
+			fecha  datetime,
+
 						
 			status int(11) NOT NULL DEFAULT 1,
 			date_added timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -32,8 +35,11 @@ class ModelProduccionEjemplo extends Model {
 	public function addEjemplo($data) {
 		
 		$sql="INSERT INTO p" . DB_PREFIX . "ejemplo 
-		SET descrip = '" . $this->db->escape($data['descrip'])."',
-		number = '" . $this->db->escape($data['number'])."',
+		SET 
+			detalle = '" . $this->db->escape($data['detalle'])."',
+			cantidad = '" . $this->db->escape($data['cantidad'])."',
+			fecha = '" . date("Y-m-d",strtotime($this->db->escape($data['fecha'])))."',
+
 			status = '" . $this->db->escape($data['status'])."',
 			date_added	= now() ,
 			user_id_added = '" . $this->user->getId() . "' ";
@@ -44,8 +50,11 @@ class ModelProduccionEjemplo extends Model {
 	
 	public function editEjemplo($ejemplo_id, $data) {
 		$sql="UPDATE p" . DB_PREFIX . "ejemplo 
-		SET descrip = '" . $this->db->escape($data['descrip'])."',
-			number = '" . $this->db->escape($data['number'])."',
+		SET 
+			detalle = '" . $this->db->escape($data['detalle'])."',
+			cantidad = '" . $this->db->escape($data['cantidad'])."',
+			fecha = '" . date("Y-m-d",strtotime($this->db->escape($data['fecha'])))."',
+
 			status = '" . $this->db->escape($data['status'])."',
 			user_id_modified = '" . $this->user->getId() . "',
 			date_modified 	= now() 
@@ -86,9 +95,17 @@ class ModelProduccionEjemplo extends Model {
 		if (!empty($data['filter_ejemplo_id'])) {
 			$implode[] = " ejemplo_id='" . $this->db->escape($data['filter_ejemplo_id']) . "' ";
 		}		
-		if (!empty($data['filter_descrip'])) {
-			$implode[] = " descrip LIKE '%" . $this->db->escape($data['filter_descrip']) . "%' ";
+//BEA
+		if (!empty($data['filter_detalle'])) {
+			$implode[] = " detalle LIKE '%" . $this->db->escape($data['filter_detalle']) . "%' ";
 		}		
+		if (!empty($data['filter_cantidad'])) {
+			$implode[] = " cantidad='" . $this->db->escape($data['filter_cantidad']) . "' ";
+		}		
+		if (!empty($data['filter_fecha'])) {
+			$implode[] = " fecha='" . $this->db->escape($data['filter_fecha']) . "' ";
+		}		
+//FIN BEA
 		if (!empty($data['filter_status'])) {
 			$implode[] = " status='" . $this->db->escape($data['filter_status']) . "' ";
 		}		
@@ -97,14 +114,18 @@ class ModelProduccionEjemplo extends Model {
 		}
 		$sort_data = array(
 			'ejemplo_id',
-			'descrip',
+
+			'detalle',
+			'cantidad',
+			'fecha',
+
 			'date_added',
 			'code'
 		);
 		if (isset($data['sort']) && in_array($data['sort'], $sort_data)) {
 			$sql .= " ORDER BY " . $data['sort'];
 		} else {
-			$sql .= " ORDER BY descrip";
+			$sql .= " ORDER BY detalle";
 		}
 
 		if (isset($data['order']) && ($data['order'] == 'DESC')) {
@@ -131,9 +152,17 @@ class ModelProduccionEjemplo extends Model {
 		if (!empty($data['filter_ejemplo_id'])) {
 			$implode[] = " ejemplo_id='" . $this->db->escape($data['filter_ejemplo_id']) . "' ";
 		}		
-		if (!empty($data['filter_descrip'])) {
-			$implode[] = " descrip LIKE '%" . $this->db->escape($data['filter_descrip']) . "%' ";
-		}	
+//BEA
+		if (!empty($data['filter_detalle'])) {
+			$implode[] = " detalle LIKE '%" . $this->db->escape($data['filter_detalle']) . "%' ";
+		}		
+		if (!empty($data['filter_cantidad'])) {
+			$implode[] = " cantidad='" . $this->db->escape($data['filter_cantidad']) . "' ";
+		}		
+		if (!empty($data['filter_fecha'])) {
+			$implode[] = " fecha='" . $this->db->escape($data['filter_fecha']) . "' ";
+		}		
+//FIN BEA
 		if (!empty($data['filter_status'])) {
 			$implode[] = " status='" . $this->db->escape($data['filter_status']) . "' ";
 		}		

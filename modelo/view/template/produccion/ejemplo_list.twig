@@ -3,11 +3,11 @@
   <div class="page-header">
     <div class="container-fluid">
       <div class="pull-right">
-		<button type="button" data-toggle="tooltip" title="{{ button_filter }}" onclick="$('#filter-proveedor').toggleClass('hidden-sm hidden-xs');" class="btn btn-default hidden-md hidden-lg"><i class="fa fa-filter"></i></button>
+		<button type="button" data-toggle="tooltip" title="{{ button_filter }}" onclick="$('#filter-ejemplo').toggleClass('hidden-sm hidden-xs');" class="btn btn-default hidden-md hidden-lg"><i class="fa fa-filter"></i></button>
         <a href="{{ add }}" data-toggle="tooltip" title="{{ button_add }}" class="btn btn-primary"><i class="fa fa-plus"></i></a>
-        <button type="submit" form="form-proveedor" formaction="{{ copy }}" data-toggle="tooltip" title="{{ button_copy }}" class="btn btn-default"><i class="fa fa-copy"></i></button>
+        <button type="submit" form="form-ejemplo" formaction="{{ copy }}" data-toggle="tooltip" title="{{ button_copy }}" class="btn btn-default"><i class="fa fa-copy"></i></button>
 		
-        <button type="button" data-toggle="tooltip" title="{{ button_delete }}" class="btn btn-danger" onclick="confirm('{{ text_confirm }}') ? $('#form-proveedor').submit() : false;"><i class="fa fa-trash-o"></i></button>
+        <button type="button" data-toggle="tooltip" title="{{ button_delete }}" class="btn btn-danger" onclick="confirm('{{ text_confirm }}') ? $('#form-ejemplo').submit() : false;"><i class="fa fa-trash-o"></i></button>
 		|
 		<button type="button" data-toggle="tooltip" title="Bajar XLSX" onclick="download_xlsx()" class="btn btn-success"><i class="fa fa-download"></i> XLS</button>	
 		<button type="button" id="xlsx-upload" data-toggle="tooltip" title="Subir XLSX" class="btn btn-success"><i class="fa fa-upload"></i> XLS</button>		
@@ -26,7 +26,7 @@
 			</li> 
 		</ul>		
       </div>
-      <ul class="breadcrumb" style="background-domicilio:#red;">
+      <ul class="breadcrumb">
         <li>{{ heading_title }}</li>
 		{% for breadcrumb in breadcrumbs %}
         <li><a href="{{ breadcrumb.href }}">{{ breadcrumb.text }}</a></li>
@@ -46,19 +46,19 @@
     </div>
     {% endif %}
     <div class="row">
-      <div id="filter-proveedor" class="col-md-3 col-md-push-9 col-sm-12 hidden-sm hidden-xs">
+      <div id="filter-ejemplo" class="col-md-3 col-md-push-9 col-sm-12 hidden-sm hidden-xs">
         <div class="panel panel-default">
           <div class="panel-heading">
             <a id="button-filter2"<h3 class="panel-title" id="button-filter2"><i class="fa fa-filter"></i> {{ text_filter }}</h3>
           </div>
           <div class="panel-body">
             <div class="form-group">
-              <label class="control-label" for="input-proveedor_id">{{ entry_proveedor_id }}</label>
-              <input type="text" name="filter_proveedor_id" value="{{ filter_proveedor_id }}" placeholder="{{ entry_proveedor_id }}" id="input-proveedor_id" class="form-control" />
+              <label class="control-label" for="input-ejemplo_id">{{ entry_ejemplo_id }}</label>
+              <input type="text" name="filter_ejemplo_id" value="{{ filter_ejemplo_id }}" placeholder="{{ entry_ejemplo_id }}" id="input-ejemplo_id" class="form-control" />
             </div>
             <div class="form-group">
-              <label class="control-label" for="input-razonsocial">{{ entry_razonsocial }}</label>
-              <input type="text" name="filter_razonsocial" value="{{ filter_razonsocial }}" placeholder="{{ entry_razonsocial }}" id="input-razonsocial" class="form-control" />
+              <label class="control-label" for="input-detalle">{{ entry_detalle }}</label>
+              <input type="text" name="filter_detalle" value="{{ filter_detalle }}" placeholder="{{ entry_detalle }}" id="input-detalle" class="form-control" />
             </div>
             <div class="form-group">
               <label class="control-label" for="input-status">{{ entry_status }}</label>
@@ -88,49 +88,53 @@
           </div>
           <div class="panel-body">
             <div class="table-responsive">
-              <form action="{{ delete }}" method="post" enctype="multipart/form-data" id="form-proveedor">
+              <form action="{{ delete }}" method="post" enctype="multipart/form-data" id="form-ejemplo">
                 <table class="table table-bordered table-hover">
                   <thead>
                     <tr>
                       <td style="width: 1px;" class="text-center"><input type="checkbox" onclick="$('input[name*=\'selected\']').prop('checked', this.checked);" /></td>
 					  
-                      <td class="text-left">{% if sort == 'proveedor_id' %}<a href="{{ sort_proveedor_id }}" class="{{ order|lower }}">{{ column_proveedor_id }}</a>{% else %}<a href="{{ sort_proveedor_id }}">{{ column_proveedor_id }}</a>{% endif %}</td>
-                      <td class="text-left">{% if sort == 'razonsocial' %}<a href="{{ sort_razonsocial }}" class="{{ order|lower }}">{{ column_razonsocial }}</a>{% else %}<a href="{{ sort_razonsocial }}">{{ column_razonsocial }}</a>{% endif %}</td>
+                      <td class="text-left">{% if sort == 'ejemplo_id' %}<a href="{{ sort_ejemplo_id }}" class="{{ order|lower }}">{{ column_ejemplo_id }}</a>{% else %}<a href="{{ sort_ejemplo_id }}">{{ column_ejemplo_id }}</a>{% endif %}</td>
 
-						<td class="text-left">{% if sort == 'domicilio' %}<a href="{{ sort_domicilio }}" class="{{ order|lower }}">{{ column_domicilio }}</a>{% else %}<a href="{{ sort_domicilio }}">{{ column_domicilio }}</a>{% endif %}</td>
-						<td class="text-left">{% if sort == 'email' %}<a href="{{ sort_email }}" class="{{ order|lower }}">{{ column_email }}</a>{% else %}<a href="{{ sort_email }}">{{ column_email }}</a>{% endif %}</td>
-
-                      <td class="text-left">{% if sort == 'code' %}<a href="{{ sort_code }}" class="{{ order|lower }}">{{ column_code }}</a>{% else %}<a href="{{ sort_code }}">{{ column_code }}</a>{% endif %}</td>                      
+<!-- BEA -->
+<td class="text-left">{% if sort == 'detalle' %}<a href="{{ sort_detalle }}" class="{{ order|lower }}">{{ column_detalle }}</a>{% else %}<a href="{{ sort_detalle }}">{{ column_detalle }}</a>{% endif %}</td>
+<td class="text-left">{% if sort == 'cantidad' %}<a href="{{ sort_cantidad }}" class="{{ order|lower }}">{{ column_cantidad }}</a>{% else %}<a href="{{ sort_cantidad }}">{{ column_cantidad }}</a>{% endif %}</td>
+<td class="text-left">{% if sort == 'fecha' %}<a href="{{ sort_fecha }}" class="{{ order|lower }}">{{ column_fecha }}</a>{% else %}<a href="{{ sort_fecha }}">{{ column_fecha }}</a>{% endif %}</td>
+<!-- FIN BEA -->
+                      
 					  <td class="text-center">ABC</td>
                       <td class="text-right">{{ column_action }}</td>
                     </tr>
                   </thead>
                   <tbody>
-                  {% if proveedors %}
-                  {% for proveedor in proveedors %}
+                  {% if ejemplos %}
+                  {% for ejemplo in ejemplos %}
                   <tr>
-                    <td class="text-center">{% if proveedor.proveedor_id in selected %}
-                      <input type="checkbox" name="selected[]" value="{{ proveedor.proveedor_id }}" checked="checked" />
+                    <td class="text-center">{% if ejemplo.ejemplo_id in selected %}
+                      <input type="checkbox" name="selected[]" value="{{ ejemplo.ejemplo_id }}" checked="checked" />
                       {% else %}
-                      <input type="checkbox" name="selected[]" value="{{ proveedor.proveedor_id }}" />
+                      <input type="checkbox" name="selected[]" value="{{ ejemplo.ejemplo_id }}" />
                       {% endif %}
                     </td>
-                      <td class="text-left">{{ proveedor.proveedor_id}}</td>
-                      <td class="text-left">{{ proveedor.razonsocial }}</td>
-					  <td class="text-left"><button type="button" class="btn btn-block" style="background-domicilio:{{ proveedor.domicilio }};"></button></td>
-					  <td class="text-left">{{ proveedor.code }}</td>					  
+                      <td class="text-left">{{ ejemplo.ejemplo_id}}</td>
+<!-- BEA -->
+                      <td class="text-left">{{ ejemplo.detalle }}</td>
+					  <td class="text-left">{{ ejemplo.cantidad }}</td>
+					  <td class="text-left">{{ ejemplo.fecha }}</td>
+<!-- FIN BEA -->
+					  <td class="text-left">{{ ejemplo.code }}</td>					  
                      <td class="text-center">
-					<span class="btn btn-success" data-toggle="tooltip" title="{{ proveedor.date_added }}/{{ proveedor.user_id_added }}"></span>
-					{% if proveedor.date_modified %}
-						<span class="btn btn-warning" data-toggle="tooltip" title="{{ proveedor.date_modified }}/{{ proveedor.user_id_modified }}"></span>
+					<span class="btn btn-success" data-toggle="tooltip" title="{{ ejemplo.date_added }}/{{ ejemplo.user_id_added }}"></span>
+					{% if ejemplo.date_modified %}
+						<span class="btn btn-warning" data-toggle="tooltip" title="{{ ejemplo.date_modified }}/{{ ejemplo.user_id_modified }}"></span>
 					{% endif %}
-					{% if proveedor.date_delete %}
-						<span class="btn btn-danger" data-toggle="tooltip" title="{{ proveedor.date_delete }}/{{ proveedor.user_id_delete }}"></span>
+					{% if ejemplo.date_delete %}
+						<span class="btn btn-danger" data-toggle="tooltip" title="{{ ejemplo.date_delete }}/{{ ejemplo.user_id_delete }}"></span>
 					{% endif %}
 					</td>
                     <td class="text-right">
                       <div class="btn-group">
-                        <a href="{{ proveedor.edit }}" data-toggle="tooltip" title="{{ button_edit }}" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
+                        <a href="{{ ejemplo.edit }}" data-toggle="tooltip" title="{{ button_edit }}" class="btn btn-primary"><i class="fa fa-pencil"></i></a>
                       </div>
                     </td>
                   </tr>
@@ -164,28 +168,28 @@
 		
 		function limit() {
 			$.LoadingOverlay("show");
-			url = 'index.php?route=produccion/proveedor&user_token={{ user_token }}';
+			url = 'index.php?route=produccion/ejemplo&user_token={{ user_token }}';
 			url += filtrar();
 			console.log(url);
 			location = url;
 		}
 		$('#button-filter').on('click', function() {
 			$.LoadingOverlay("show");
-			url = 'index.php?route=produccion/proveedor&user_token={{ user_token }}';
+			url = 'index.php?route=produccion/ejemplo&user_token={{ user_token }}';
 			url += filtrar();
 			location = url;
 		});  
 		$('#button-filter2').on('click', function() {
 			$.LoadingOverlay("show");
-			url = 'index.php?route=produccion/proveedor&user_token={{ user_token }}';
+			url = 'index.php?route=produccion/ejemplo&user_token={{ user_token }}';
 			url += filtrar();
 			location = url;
 		});  
 		function filtrar(){
 			url ="";
-			var filter_proveedor_id = $('input[name=\'filter_proveedor_id\']').val();
-			if (filter_proveedor_id) {
-				url += '&filter_proveedor_id=' + encodeURIComponent(filter_proveedor_id);
+			var filter_ejemplo_id = $('input[name=\'filter_ejemplo_id\']').val();
+			if (filter_ejemplo_id) {
+				url += '&filter_ejemplo_id=' + encodeURIComponent(filter_ejemplo_id);
 			}
 			var filter_numero = $('input[name=\'filter_numero\']').val();
 			if (filter_numero) {
@@ -195,9 +199,9 @@
 			if (filter_matricula) {
 				url += '&filter_matricula=' + encodeURIComponent(filter_matricula);
 			}			
-			var filter_razonsocial = $('input[name=\'filter_razonsocial\']').val();
-			if (filter_razonsocial) {
-				url += '&filter_razonsocial=' + encodeURIComponent(filter_razonsocial);
+			var filter_detalle = $('input[name=\'filter_detalle\']').val();
+			if (filter_detalle) {
+				url += '&filter_detalle=' + encodeURIComponent(filter_detalle);
 			}
 			var filter_status = $('select[name=\'filter_status\']').val();
 			if (filter_status !== '') {
@@ -210,7 +214,7 @@
 			return url;
 		};
 		function download_xlsx(){
-			url = 'index.php?route=produccion/proveedor/download_xlsx&user_token={{ user_token }}';
+			url = 'index.php?route=produccion/ejemplo/download_xlsx&user_token={{ user_token }}';
 			url += filtrar();
 			$.ajax({
 				url: url,
@@ -238,7 +242,7 @@
 					clearInterval(timer);
 					var formData = new FormData($('#form-upload')[0]);
 					$.ajax({
-						url : 'index.php?route=produccion/proveedor/upload_xlsx&user_token={{ user_token }}',
+						url : 'index.php?route=produccion/ejemplo/upload_xlsx&user_token={{ user_token }}',
 						type: 'post',
 						dataType: 'json',
 						data: formData,
@@ -252,7 +256,7 @@
 							$.LoadingOverlay("hide");
 						},
 						success: function(json) {
-							url = 'index.php?route=produccion/proveedor&user_token={{ user_token }}';
+							url = 'index.php?route=produccion/ejemplo&user_token={{ user_token }}';
 							url += filtrar();
 							location = url;
 						},
